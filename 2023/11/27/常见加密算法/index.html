@@ -45,7 +45,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-11-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-27T11:34:34.078Z">
+<meta property="article:modified_time" content="2023-11-27T11:40:56.561Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -1628,7 +1628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1701085160684),
+    lastupdate: new Date(1701085272581),
     sidebar: {
       for_page: ["blogger","category","tagcloud","text"],
       for_post: ["toc"],
@@ -2511,7 +2511,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><p>base64是一种以64个可打印字符对二进制数据进行编码的编码算法。base64在对数据进行编码时以三个8位字符型数据为一组，取这三个字符型数据的ASCII码，然后以6位为一组组成4个新的数据，这4个新的数据有6位，所以它的最大值为2^6&#x3D;64。我们以4个6位数据的十进制数从base64表中得到最终编码后的字符。<br><img src="../image/149.png" class="lazyload" data-srcset="../image/149.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="149" style="zoom:50%;" /></p>
+    <h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><p>base64是一种以64个可打印字符对二进制数据进行编码的编码算法。base64在对数据进行编码时以三个8位字符型数据为一组，取这三个字符型数据的ASCII码，然后以6位为一组组成4个新的数据，这4个新的数据有6位，所以它的最大值为2^6&#x3D;64。我们以4个6位数据的十进制数从base64表中得到最终编码后的字符。<br><img src="../image/149.png" class="lazyload" data-srcset="../image/149.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="149" style="zoom:50%;" /></p>
 <p>由于base64编码是将编码前的3*8位数据，分解成4个6位的数据，所以经过base64编码后的字符串长度是4的倍数。但往往我们进行编码的数据长度并不是3的倍数，这就造成了“编码”后的位数不为4的倍数，比如Brisk共5×8&#x3D;40位，以6位为一组可以分为7组，这样“编码”后就有7个字符，但base64编码后的字符长度应该是4的倍数，显然这里就出问题了，那么怎么办呢？前面的不可以抛弃掉，所以就只有“追加”了，所以Brisk经过base64编码后的长度应该是8个字符，而第8个编码后的字符是’&#x3D;’，再比如对单个字符a进行base64编码，由于它的长度不是3的倍数，以3个字节为一组它只能分一组，再以6位为一位它只能分两组，所以经过“编码”后它的长度是2，但base64编码后的个数应该是4的倍数，所以它的长度应该是4，所以在后面补上两个‘&#x3D;’,由于一个数求余3后有三个不同的结果，0、1、2，所以在对一个数据进行base64进行编码后它的长度为：</p>
 <p>（1）当进行编码的数据长度是3的倍数时，len&#x3D;strlen(str_in)&#x2F;3*4;<br>（2）当进行编码的数据长度不是3的倍数时，len&#x3D;(strlen(str_in)&#x2F;3+1)*4;</p>
 <pre><code>   我们以Brisk这个例子来说明一下base64编码的过程。首先我们以3个字符为一组将Brisk进行分组，Brisk被氛围两组：Bri 和 sk；然后我们取出这两个分组中每个字节的ASCII码，B:66 r:114 i:105 s:115 k:107。它们对应的二进制数为  B:01000010 r:01110010 i:01101001 s:01110011 k:01101011；
@@ -2526,7 +2526,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">特征：1.含有许多数字常量 例如0x3，0xf，0x3f</span><br><span class="line">     2.有等号&#x27;=&#x27; </span><br></pre></td></tr></table></figure>
 
-<h1 id="RC4"><a href="#RC4" class="headerlink" title="RC4"></a>RC4</h1><p>RC4是一种对称的加密算法，所谓的对称加密算法是指加密和解密使用相同密钥的加密算法，数据发送方利用密钥将明文经过特殊加密算法处理后，使其变成复杂的加密密文发送出去，接收方收到密文后，若想解读原文，则需要使用加密用过的密钥以及相同的加密算法对明文进行解密，才能使其恢复成可读的明文。<br>RC4算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节（8-2048比特），生成的密钥流的长度和铭文的长度是对应的。在现在技术支持的前提下，当密钥长度为128比特是，用暴力法搜索密钥可能已经不太可行，所以能够预见RC4的密钥范围仍然能够在今后相当长的时间里低于暴力搜索哟密钥的攻击。实际上，现在也没有找到对于128bit密钥长度的RC4加密算法的有效的攻击方法。<br>RC4主要包括了初始化算法（KSA)和加密算法两大部分。</p>
+<h2 id="RC4"><a href="#RC4" class="headerlink" title="RC4"></a>RC4</h2><p>RC4是一种对称的加密算法，所谓的对称加密算法是指加密和解密使用相同密钥的加密算法，数据发送方利用密钥将明文经过特殊加密算法处理后，使其变成复杂的加密密文发送出去，接收方收到密文后，若想解读原文，则需要使用加密用过的密钥以及相同的加密算法对明文进行解密，才能使其恢复成可读的明文。<br>RC4算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节（8-2048比特），生成的密钥流的长度和铭文的长度是对应的。在现在技术支持的前提下，当密钥长度为128比特是，用暴力法搜索密钥可能已经不太可行，所以能够预见RC4的密钥范围仍然能够在今后相当长的时间里低于暴力搜索哟密钥的攻击。实际上，现在也没有找到对于128bit密钥长度的RC4加密算法的有效的攻击方法。<br>RC4主要包括了初始化算法（KSA)和加密算法两大部分。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">加密过程概述</span><br><span class="line">1.先初始化状态向量S(256字节，用来作为密钥流生成的种子1)，按照升序，给每个字节赋值，0，1，2，3，4，5，6…</span><br><span class="line">2.初始密钥（由用户输入），长度任意，如果输入长度小于256字节，则进行轮转，直到填满，例如：</span><br><span class="line">3.输入的密钥是123456，那么填入的就是123456123456123456…</span><br><span class="line">4.由上述轮转过程得到的256字节的向量T（用来作为密钥流生成的种子2）。</span><br><span class="line">5.最后是根据向量S和T生成密钥流，与明文进行加密。</span><br></pre></td></tr></table></figure>
 
 
@@ -2569,7 +2569,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-11-27T19:34:34+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-11-27T19:40:56+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：Nov 27, 2023</p>
@@ -2710,7 +2710,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#base64"><span class="toc-text">base64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RC4"><span class="toc-text">RC4</span></a></li></ol>
     </div>
   </section>
 
@@ -3284,7 +3284,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"holys2 blog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/11/27/常见加密算法/","name":"常见加密算法"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"holys2 blog","url":"http://example.com/","keywords":null,"description":"","author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":""},"publisher":{"@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"常见加密算法","description":"","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/11/27/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"},"author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"holys2 blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/11/27/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/","wordCount":0,"datePublished":"2023-11-26T16:00:00.000Z","dateModified":"2023-11-27T11:34:34.078Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"holys2 blog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/11/27/常见加密算法/","name":"常见加密算法"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"holys2 blog","url":"http://example.com/","keywords":null,"description":"","author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":""},"publisher":{"@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"常见加密算法","description":"","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/11/27/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"},"author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"holys2 blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/11/27/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/","wordCount":0,"datePublished":"2023-11-26T16:00:00.000Z","dateModified":"2023-11-27T11:40:56.561Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
