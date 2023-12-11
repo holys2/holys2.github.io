@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="http://example.com/2023/12/05/ctf学习日志/"/>
+  <link rel="canonical" href="http://example.com/2023/12/11/ctf学习日志/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -39,13 +39,13 @@
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF学习日志">
-<meta property="og:url" content="http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:url" content="http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/index.html">
 <meta property="og:site_name" content="holys2 blog">
 <meta property="og:description" content="2023.12.2——（持续更新中）如何快速定位到main函数？寻找类似error！这样的字符串，一般main函数离这个字符串不远  如果遇到一个for循环，就直接在retn的地方下个断点，然后F9执行  硬件断点（内存访问断点）通过对所选取的数据进行断点，然后是为了追踪这个数据是怎么被引用的 python字节码Python 代码先被编译为字节码后，再由 Python 虚拟机来执行字节码，Pyth">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2023-12-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-05T14:07:26.093Z">
+<meta property="article:published_time" content="2023-12-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-11T12:09:15.495Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -1628,7 +1628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1701785269950),
+    lastupdate: new Date(1702296681104),
     sidebar: {
       for_page: ["blogger","category","tagcloud","text"],
       for_post: ["toc"],
@@ -2443,7 +2443,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/05/CTF学习日志/">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/11/CTF学习日志/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="holys2 blog">
   </span>
@@ -2485,10 +2485,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-05T00:00:00+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-11T00:00:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Dec 5, 2023</p>
+    <p>发布于：Dec 11, 2023</p>
   </a>
 </div>
 
@@ -2759,6 +2759,54 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="/../image/193.png" class="lazyload" data-srcset="/../image/193.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="193"></p>
 <h4 id="3、将解包出的-pyc文件的模数转化成struct的模数"><a href="#3、将解包出的-pyc文件的模数转化成struct的模数" class="headerlink" title="3、将解包出的.pyc文件的模数转化成struct的模数"></a>3、将解包出的.pyc文件的模数转化成struct的模数</h4><h4 id="4、反编译"><a href="#4、反编译" class="headerlink" title="4、反编译"></a>4、反编译</h4><p><img src="/../image/195.png" class="lazyload" data-srcset="/../image/195.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="195"></p>
 <p>如果有是加密的文件，就进行解密</p>
+<h3 id="python-z3库的使用"><a href="#python-z3库的使用" class="headerlink" title="python z3库的使用"></a>python z3库的使用</h3><h4 id="一-基本数据类型"><a href="#一-基本数据类型" class="headerlink" title="一.基本数据类型"></a>一.基本数据类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Int   #整型</span><br><span class="line">Bool  #布尔型</span><br><span class="line">Array #数组</span><br><span class="line">BitVec(&#x27;a&#x27;,8) #char型</span><br></pre></td></tr></table></figure>
+
+<p>其中BitVec可以是特定大小的数据类型</p>
+<p><strong>设未知数的方法：</strong></p>
+<p><strong>可以使用’Int’,’Real’,’BitVec’等声明一个整数或实数变量，也可以申明一个变量数组</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> y = Real(&#x27;y&#x27;)   #**实数**变量(**数学中的**那个实数)</span><br><span class="line"> </span><br><span class="line"> z = BitVec(&#x27;z&#x27;,8)  #char型</span><br><span class="line"> </span><br><span class="line">w = BitVec(&#x27;w&#x27;,32)   #int型</span><br><span class="line"> </span><br><span class="line">p = Bool(&#x27;p&#x27;)        #定义布尔型</span><br></pre></td></tr></table></figure>
+
+<h4 id="二-基本命令"><a href="#二-基本命令" class="headerlink" title="二.基本命令"></a>二.基本命令</h4><p>Solver()</p>
+<ul>
+<li>Solver()命令会创建一个通用求解器，创建后我们可以添加我们的约束条件，进行下一步的求解</li>
+</ul>
+<p>add()</p>
+<ul>
+<li>add()命令用来添加约束条件，通常在solver()命令之后，添加的约束条件通常是一个逻辑等式</li>
+</ul>
+<p>check()</p>
+<ul>
+<li>该函数通常用来判断在添加完约束条件后，来检测解的情况，有解的时候会回显sat，无解的时候会回显unsat</li>
+</ul>
+<p>model()</p>
+<ul>
+<li>在存在解的时候，该函数会将每个限制条件所对应的解集的交集，进而得出正解。</li>
+</ul>
+<p>常用求解四步骤：</p>
+<p>创建约束求解器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=Solver()</span><br></pre></td></tr></table></figure>
+
+<p>增加约束条件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.add()</span><br></pre></td></tr></table></figure>
+
+<p>判断是否有解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.check() //如果有解的话返回sat，否则就返回unsat</span><br></pre></td></tr></table></figure>
+
+<p>求解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.model() </span><br></pre></td></tr></table></figure>
+
+<h4 id="And和Or的用法"><a href="#And和Or的用法" class="headerlink" title="And和Or的用法"></a>And和Or的用法</h4><h5 id="And命令"><a href="#And命令" class="headerlink" title="And命令"></a>And命令</h5><p>如果我想去掉a!&#x3D;1和b!&#x3D;1的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.add(a!=<span class="number">1</span>)</span><br><span class="line">s.add(b!=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果用And( )命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.add(And(a!=1,b!=1))</span><br></pre></td></tr></table></figure>
+
+<h5 id="Or命令"><a href="#Or命令" class="headerlink" title="Or命令"></a>Or命令</h5><p>去掉a!&#x3D;1且b!&#x3D;1的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.add(a!=<span class="number">1</span>)</span><br><span class="line">s.add(b!=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>用Or( )命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.add(Or(a!=<span class="number">1</span>,b!=<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
 
   </div>
   
@@ -2783,10 +2831,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-05T22:07:26+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-11T20:09:15+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Dec 5, 2023</p>
+    <p>更新于：Dec 11, 2023</p>
   </a>
 </div>
 
@@ -2805,7 +2853,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
           
           >
           
@@ -2817,7 +2865,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
           
           >
           
@@ -2829,7 +2877,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/&title=CTF学习日志 - holys2 blog&summary="
           
           >
           
@@ -2863,9 +2911,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class="prev-next">
       
       
-        <a class='next' href='/2023/12/04/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
-          <p class='title'>Dec 5, 2023<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'></p>
+        <a class='next' href='/2023/12/06/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
+          <p class='title'>常见问题<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>关于在终端窗口想查看报错但窗口闪退</p>
         </a>
       
     </div>
@@ -2881,7 +2929,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2923,7 +2971,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2023-12-2%E2%80%94%E2%80%94%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89"><span class="toc-text">2023.12.2——（持续更新中）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E5%88%B0main%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">如何快速定位到main函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%96%AD%E7%82%B9%EF%BC%88%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E6%96%AD%E7%82%B9%EF%BC%89"><span class="toc-text">硬件断点（内存访问断点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E5%AD%97%E8%8A%82%E7%A0%81"><span class="toc-text">python字节码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">常用数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dict"><span class="toc-text">dict</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#while"><span class="toc-text">while</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#for-in%E5%BE%AA%E7%8E%AF"><span class="toc-text">for in循环</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E8%BE%A8%E5%87%BD%E6%95%B0"><span class="toc-text">分辨函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E6%8C%87%E4%BB%A4"><span class="toc-text">其它指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyc%E6%96%87%E4%BB%B6"><span class="toc-text">pyc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dis"><span class="toc-text">dis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E7%9F%A5%E8%AF%86"><span class="toc-text">一些其它知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyc%E5%AD%97%E8%8A%82%E7%A0%81%E7%B1%BB%E9%A2%98%E7%9B%AE"><span class="toc-text">pyc字节码类题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pyc%E7%B1%BB%E5%8A%A0%E8%8A%B1"><span class="toc-text">pyc类加花</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python%E9%80%86%E5%90%91%E2%80%94%E2%80%94Pyinstaller%E9%80%86%E5%90%91"><span class="toc-text">Python逆向——Pyinstaller逆向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%8F%82%E6%95%B0"><span class="toc-text">无参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89-key%E5%8F%82%E6%95%B0"><span class="toc-text">有-key参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8%E6%BA%90%E7%A0%81%E7%9A%84%E8%84%9A%E6%9C%AC%E6%B3%95"><span class="toc-text">方法一：利用源码的脚本法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E6%94%B9%E6%BA%90%E7%A0%81%E6%B3%95"><span class="toc-text">方法二：改源码法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E6%89%93%E5%8C%85%E7%9A%84elf%E6%96%87%E4%BB%B6"><span class="toc-text">python打包的elf文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81dump"><span class="toc-text">1、dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%B0%86%E5%BE%97%E5%88%B0%E7%9A%84dump%E6%96%87%E4%BB%B6%E7%94%A8pyinstxtractor%E5%B7%A5%E5%85%B7%E8%A7%A3%E5%8C%85"><span class="toc-text">2、将得到的dump文件用pyinstxtractor工具解包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%B0%86%E8%A7%A3%E5%8C%85%E5%87%BA%E7%9A%84-pyc%E6%96%87%E4%BB%B6%E7%9A%84%E6%A8%A1%E6%95%B0%E8%BD%AC%E5%8C%96%E6%88%90struct%E7%9A%84%E6%A8%A1%E6%95%B0"><span class="toc-text">3、将解包出的.pyc文件的模数转化成struct的模数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-text">4、反编译</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2023-12-2%E2%80%94%E2%80%94%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89"><span class="toc-text">2023.12.2——（持续更新中）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E5%88%B0main%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">如何快速定位到main函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%96%AD%E7%82%B9%EF%BC%88%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E6%96%AD%E7%82%B9%EF%BC%89"><span class="toc-text">硬件断点（内存访问断点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E5%AD%97%E8%8A%82%E7%A0%81"><span class="toc-text">python字节码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">常用数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dict"><span class="toc-text">dict</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#while"><span class="toc-text">while</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#for-in%E5%BE%AA%E7%8E%AF"><span class="toc-text">for in循环</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E8%BE%A8%E5%87%BD%E6%95%B0"><span class="toc-text">分辨函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E6%8C%87%E4%BB%A4"><span class="toc-text">其它指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyc%E6%96%87%E4%BB%B6"><span class="toc-text">pyc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dis"><span class="toc-text">dis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E7%9F%A5%E8%AF%86"><span class="toc-text">一些其它知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyc%E5%AD%97%E8%8A%82%E7%A0%81%E7%B1%BB%E9%A2%98%E7%9B%AE"><span class="toc-text">pyc字节码类题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pyc%E7%B1%BB%E5%8A%A0%E8%8A%B1"><span class="toc-text">pyc类加花</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python%E9%80%86%E5%90%91%E2%80%94%E2%80%94Pyinstaller%E9%80%86%E5%90%91"><span class="toc-text">Python逆向——Pyinstaller逆向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%8F%82%E6%95%B0"><span class="toc-text">无参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89-key%E5%8F%82%E6%95%B0"><span class="toc-text">有-key参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8%E6%BA%90%E7%A0%81%E7%9A%84%E8%84%9A%E6%9C%AC%E6%B3%95"><span class="toc-text">方法一：利用源码的脚本法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E6%94%B9%E6%BA%90%E7%A0%81%E6%B3%95"><span class="toc-text">方法二：改源码法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E6%89%93%E5%8C%85%E7%9A%84elf%E6%96%87%E4%BB%B6"><span class="toc-text">python打包的elf文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81dump"><span class="toc-text">1、dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%B0%86%E5%BE%97%E5%88%B0%E7%9A%84dump%E6%96%87%E4%BB%B6%E7%94%A8pyinstxtractor%E5%B7%A5%E5%85%B7%E8%A7%A3%E5%8C%85"><span class="toc-text">2、将得到的dump文件用pyinstxtractor工具解包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%B0%86%E8%A7%A3%E5%8C%85%E5%87%BA%E7%9A%84-pyc%E6%96%87%E4%BB%B6%E7%9A%84%E6%A8%A1%E6%95%B0%E8%BD%AC%E5%8C%96%E6%88%90struct%E7%9A%84%E6%A8%A1%E6%95%B0"><span class="toc-text">3、将解包出的.pyc文件的模数转化成struct的模数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-text">4、反编译</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-z3%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">python z3库的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">一.基本数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-text">二.基本命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#And%E5%92%8COr%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-text">And和Or的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#And%E5%91%BD%E4%BB%A4"><span class="toc-text">And命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Or%E5%91%BD%E4%BB%A4"><span class="toc-text">Or命令</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -3497,7 +3545,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"holys2 blog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/12/05/CTF学习日志/","name":"CTF学习日志"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"holys2 blog","url":"http://example.com/","keywords":null,"description":"","author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":""},"publisher":{"@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"CTF学习日志","description":"","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"},"author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"holys2 blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/12/05/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/","wordCount":0,"datePublished":"2023-12-04T16:00:00.000Z","dateModified":"2023-12-05T14:07:26.093Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"holys2 blog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/12/11/CTF学习日志/","name":"CTF学习日志"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"holys2 blog","url":"http://example.com/","keywords":null,"description":"","author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":""},"publisher":{"@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"CTF学习日志","description":"","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"},"author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"holys2 blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/12/11/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/","wordCount":0,"datePublished":"2023-12-10T16:00:00.000Z","dateModified":"2023-12-11T12:09:15.495Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
