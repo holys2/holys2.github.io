@@ -1624,7 +1624,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1702697279287),
+    lastupdate: new Date(1703906289904),
     sidebar: {
       for_page: ["blogger","category","tagcloud","text"],
       for_post: ["toc"],
@@ -2472,9 +2472,228 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
+          
+        
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/29/2023-强网杯安卓逆向知识总结(neon加速)/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="holys2 blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="holys2 blog">
+    <meta itemprop="description" content="">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2023/12/29/2023-%E5%BC%BA%E7%BD%91%E6%9D%AF%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93(neon%E5%8A%A0%E9%80%9F)/"  itemprop="url">
+        2023-强网杯安卓逆向知识总结（neon加速）
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        前面的apk重打包就不做详细操作
+我们用ida打开so文件，找到了它的加密函数，但是实话实说很难懂，那么我们分析它的汇编代码
+
+
+首先我们先来到了这个加密函数的开头，映入眼帘的是这个UMOV函数，mov指令我们都知道，给寄存器赋值，但是后面这个V0.D[1]是什么东西 ，这个D就是V0的子寄存器，它常见于SIMD指令
+1UMOV 指令的原本含义UMOV (from a SIMD elemen...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2023-12-29T00:00:00+08:00">2023-12-29</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/">安卓逆向</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" itemprop="url"><span itemprop="name">安卓逆向</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2023/12/29/2023-%E5%BC%BA%E7%BD%91%E6%9D%AF%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93(neon%E5%8A%A0%E9%80%9F)/' itemprop="url">
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/23/AndroidManifest文件格式/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="holys2 blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="holys2 blog">
+    <meta itemprop="description" content="">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2023/12/23/AndroidManifest%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/"  itemprop="url">
+        AndroidManifest文件格式
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        1、AndroidManifest文件格式解析
+2、头部信息3、String Chunk
+这个Chunk主要存放的是AndroidManifest文件中所有的字符串信息
+1234567891、ChunkType：StringChunk的类型，固定四个字节：0x001C0001 2、ChunkSize：StringChunk的大小，四个字节 3、StringCount：StringChunk中...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2023-12-23T00:00:00+08:00">2023-12-23</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/">安卓逆向</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" itemprop="url"><span itemprop="name">安卓逆向</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2023/12/23/AndroidManifest%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/' itemprop="url">
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/19/安卓逆向/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="holys2 blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="holys2 blog">
+    <meta itemprop="description" content="">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/"  itemprop="url">
+        安卓逆向学习
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        APK1.了解APK文件结构apk全称 Android Package,它相当于一个压缩文件，只有在电脑上将apk后缀改为rar即可解压
+
+
+
+文件
+注释
+
+
+
+
+assets目录
+存放APK的静态资源文件，比如视频，音频，图片等
+
+
+
+lib 目录
+armeabi-v7a基本通用所有android设备，arm64-v8a只适用于64位的android设备，x86常见用于android模拟器...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2023-12-19T00:00:00+08:00">2023-12-19</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/">安卓逆向</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" itemprop="url"><span itemprop="name">安卓逆向</span></a>
+            </span>
+          
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/' itemprop="url">
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -2519,6 +2738,14 @@ python字节码Python 代码先被编译为字节码后，再由 Python 虚拟�
       <div>
         
         <time itemprop="dateCreated datePublished" datetime="2023-12-16T00:00:00+08:00">2023-12-16</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/ctf%E5%AD%A6%E4%B9%A0/">ctf学习</a>
+          
+            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+              <a href="/categories/ctf%E5%AD%A6%E4%B9%A0/" itemprop="url"><span itemprop="name">ctf学习</span></a>
+            </span>
+          
         
       </div>
       
@@ -2877,219 +3104,24 @@ python字节码Python 代码先被编译为字节码后，再由 Python 虚拟�
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/汇编学习/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="holys2 blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="holys2 blog">
-    <meta itemprop="description" content="">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/11/11/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/"  itemprop="url">
-        汇编学习
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        2023.11.06-11.10各类存储器芯片
-从读写属性上看可以分为两类:
-随机存储器(RAM)和只读存储器（ROM）
-RAM:内存就是一个大的随机存储器，如果断电了数据就会丢失
-ROM：它会一直存在那里除非你把它刷掉
-
-
-
-
-
-
-
-
-寄存器CPU工作原理8086CPU有14个寄存器 它们的名称为：AX, BX, CX, DX,SI,DI,SP,BP, IP, CS,SS   DS,ES,...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-11-11T00:00:00+08:00">2023-11-11</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/11/11/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/' itemprop="url">
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/14/C-语言-学习笔记/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="holys2 blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="holys2 blog">
-    <meta itemprop="description" content="">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/14/C-%E8%AF%AD%E8%A8%80-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"  itemprop="url">
-        C 语言 学习笔记
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        关于visual stdio调试怎么调试呢？？ 我们可以在我们的程序中加一个断点   然后debug &#x2F; F5
-
-程序执行到printf 函数这里会停止 但不运行
-
-
-C 程序的编译，运行，调试创建一个空的工程，添加文件，编译运行
-Debug版本
-
-下断点，单步执行，运行数据查看
-
-release版本
-
-编译优化，文件精简
-
-X64
-
-64位
-
-CPU,寄存器最多处理8个字节
-
-内...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-10-14T10:55:59+08:00">2023-10-14</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/10/14/C-%E8%AF%AD%E8%A8%80-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/' itemprop="url">
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/12/newstar-ctf/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="holys2 blog">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="holys2 blog">
-    <meta itemprop="description" content="">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/10/12/newstar-ctf/"  itemprop="url">
-        newstar_ctf
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-        week1—CRYPTObrainfuck
-Caesar’s Secert
-Fence
-Vigenère
-babyencoding
-week1—MISCCyberChef’s Secret
-机密图片发现是图片隐写术 利用StegSolve
-
-
-流量！鲨鱼！利用wireshark
-
-
-找到那个最像flag的文件    Wm14aFozdFhjbWt6TldnMGNtdGZNWE5mZFRVel...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-10-12T17:16:13+08:00">2023-10-12</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/10/12/newstar-ctf/' itemprop="url">
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
+    
+      <br>
+      <div class="prev-next">
+        
+        <p class="current">
+          1 / 2
+        </p>
+        
+          <a class="next" rel="next" href="/page/2/">
+            <section class="post next white-box shadow floatable blur">
+              &nbsp;Next&nbsp;<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </section>
+          </a>
+        
+      </div>
     
   
 
@@ -3165,6 +3197,33 @@ week1—MISCCyberChef’s Secret
     
     
       
+  
+  <section class="widget category desktop pjax">
+    
+  <header>
+    
+      <a href='/blog/categories/'><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/ctf%E5%AD%A6%E4%B9%A0/" href="/categories/ctf%E5%AD%A6%E4%B9%A0/"
+            active-action="action-categoriesctfE5ADA6E4B9A0"
+            ><div class='name'>ctf学习</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/"
+            active-action="action-categoriesE5AE89E58D93E98086E59091"
+            ><div class='name'>安卓逆向</div><div class='badge'>(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
 
     
   
@@ -3173,6 +3232,21 @@ week1—MISCCyberChef’s Secret
     
     
       
+  
+  <section class="widget tagcloud desktop mobile pjax">
+    
+  <header>
+    
+      <a href='/blog/tags/'><i class="fa-solid fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/ctf%E5%AD%A6%E4%B9%A0/" style="font-size: 24px; color: #555">ctf学习</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">学习</a>
+    </div>
+  </section>
+
 
     
   

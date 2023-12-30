@@ -1,0 +1,4005 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.8.0'>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="Volantis" content="5.8.0">
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="http://example.com/2023/12/19/安卓逆向/"/>
+  <!-- 渲染优化 -->
+    <meta http-equiv='x-dns-prefetch-control' content='on' />
+      <link rel='dns-prefetch' href='https://unpkg.com'>
+      <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'self' https:; block-all-mixed-content; base-uri 'self' https:; form-action 'self' https:; worker-src 'self' https:; connect-src 'self' https: *; img-src 'self' data: https: *; media-src 'self' https: *; font-src 'self' data: https: *; frame-src 'self' https: *; manifest-src 'self' https: *; child-src https:; script-src 'self' https: 'unsafe-inline' *; style-src 'self' https: 'unsafe-inline' *; ">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <!-- import head_begin begin -->
+  <!-- import head_begin end -->
+  <!-- Custom Files headBegin begin-->
+  
+  <!-- Custom Files headBegin end-->
+  <!-- front-matter head_begin begin -->
+  <!-- front-matter head_begin end -->
+  <link rel="preload" href="/css/style.css" as="style">
+  <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- feed -->
+  <!-- 页面元数据 -->
+  <title>安卓逆向学习 - holys2 blog</title>
+  <meta name="keywords" content="ctf学习,null">
+  <meta desc name="description" content="holys2 blog - John Doe - holys2 blog">
+  
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓逆向学习">
+<meta property="og:url" content="http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/index.html">
+<meta property="og:site_name" content="holys2 blog">
+<meta property="og:description" content="APK1.了解APK文件结构apk全称 Android Package,它相当于一个压缩文件，只有在电脑上将apk后缀改为rar即可解压    文件 注释     assets目录 存放APK的静态资源文件，比如视频，音频，图片等    lib 目录 armeabi-v7a基本通用所有android设备，arm64-v8a只适用于64位的android设备，x86常见用于android模拟器，其目">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2023-12-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-28T13:14:23.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ctf学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #fff;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #d56d28;
+  --color-codeblock: #f6f6f6;
+  --color-h1: #444;
+  --color-h2: #444;
+  --color-h3: #444;
+  --color-h4: #444;
+  --color-h5: #444;
+  --color-h6: #444;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #36ac91;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+  --color-copyright-bkg: #f5f5f5;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #44d7b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #2196f3;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+}
+.cover-wrapper .cover-bg.lazyload:not(.loaded) {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.cover-wrapper .cover-bg.lazyload.loaded {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1080px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #44d7b6;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #44d7b6;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #44d7b6;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1080px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1112px;
+    left: calc((100% - 1112px) * 0.5);
+  }
+}
+@media screen and (max-width: 1112px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>`+
+        `<span class="kill-c">Microsoft has terminated support for Internet Explorer (IE) 10 and earlier versions in 2016. <br/>There are great security risks to continue using it. Please use contemporary mainstream browsers to access.</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/"><strong>Learn more ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>Sorry, your browser cannot access this site</b></span><br/>
+        <span class="kill-c">This page requires browser support (enable) JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>Learn more ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.debug = "env"; // 调试模式
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+
+  volantis.GLOBAL_CONFIG ={
+    debug: "env",
+    cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
+    default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
+    lastupdate: new Date(1703906289904),
+    sidebar: {
+      for_page: ["blogger","category","tagcloud","text"],
+      for_post: ["toc"],
+      webinfo: {
+        lastupd: {
+          enable: true,
+          friendlyShow: true
+        },
+        runtime: {
+          data: "2023/10/10",
+          unit: "天"
+        }
+      }
+    },
+    plugins: {
+      message: {"enable":true,"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/css/iziToast.min.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/js/iziToast.min.js","icon":{"default":"fa-solid fa-info-circle light-blue","quection":"fa-solid fa-question-circle light-blue"},"time":{"default":5000,"quection":20000},"position":"topRight","transitionIn":"bounceInLeft","transitionOut":"fadeOutRight","titleColor":"var(--color-text)","messageColor":"var(--color-text)","backgroundColor":"var(--color-card)","zindex":2147483647,"copyright":{"enable":true,"title":"知识共享许可协议","message":"请遵守 CC BY-NC-SA 4.0 协议。","icon":"far fa-copyright light-blue"},"aplayer":{"enable":true,"play":"fa-solid fa-play","pause":"fa-solid fa-pause"},"rightmenu":{"enable":true,"notice":true}},
+      fancybox: {"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.umd.js"},
+      
+      
+      
+    }
+  }
+
+  /******************** volantis.EventListener ********************************/
+  // 事件监听器 see: /source/js/app.js
+  volantis.EventListener = {}
+  // 这里存放pjax切换页面时将被移除的事件监听器
+  volantis.EventListener.list = []
+  //构造方法
+  function volantisEventListener(type, f, ele) {
+    this.type = type
+    this.f = f
+    this.ele = ele
+  }
+  // 移除事件监听器
+  volantis.EventListener.remove = () => {
+    volantis.EventListener.list.forEach(function (i) {
+      i.ele.removeEventListener(i.type, i.f, false)
+    })
+    volantis.EventListener.list = []
+  }
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    // 参数 r 为 true 表示pjax切换页面时事件监听器将被移除，false不移除
+    this.ele.on = (c, f, r = 1) => {
+      this.ele.addEventListener(c, f, false)
+      if (r) {
+        volantis.EventListener.list.push(new volantisEventListener(c, f, this.ele))
+      }
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = ()=>{
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) =>{
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index,1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** Pjax ********************************/
+  // /layout/_plugins/pjax/index.ejs
+  // volantis.pjax.send(callBack[,"callBackName"]) 传入pjax:send回调函数
+  // volantis.pjax.push(callBack[,"callBackName"]) 传入pjax:complete回调函数
+  // volantis.pjax.error(callBack[,"callBackName"]) 传入pjax:error回调函数
+  volantis.pjax = {};
+  volantis.pjax.method = {
+    complete: new RunItem(),
+    error: new RunItem(),
+    send: new RunItem(),
+  };
+  volantis.pjax = Object.assign(volantis.pjax, {
+    push: volantis.pjax.method.complete.push,
+    error: volantis.pjax.method.error.push,
+    send: volantis.pjax.method.send.push,
+  });
+  /******************** RightMenu ********************************/
+  // volantis.rightmenu.handle(callBack[,"callBackName"]) 外部菜单项控制
+  // 可在 volantis.mouseEvent 处获取右键事件
+  volantis.rightmenu = {};
+  volantis.rightmenu.method = {
+    handle: new RunItem(),
+  }
+  volantis.rightmenu = Object.assign(volantis.rightmenu, {
+    handle: volantis.rightmenu.method.handle.push,
+  });
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = Object.assign(volantis.dark, {
+    push: volantis.dark.method.toggle.push,
+  });
+  /********************  Message  ********************************/
+  // VolantisApp.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn)=>{
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt)=>{
+    opt = Object.assign({clean:false, pjax:true}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-"+helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+    if (opt.pjax) {
+      volantis.pjax.push(()=>{
+        myhelper(helper, html, opt.clean)
+      },"layoutHelper-"+helper)
+    }
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = Object.assign(volantis.scroll, {
+    push: volantis.scroll.engine.push,
+  });
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () =>{
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        // 注销过期的unengine未滚动事件
+        volantis.scroll.unengine.list=[]
+        volantis.scroll.engine.start();
+      }else{
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  volantis.scroll.ele = null;
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) => {
+    if (!ele) return;
+    volantis.scroll.ele = ele;
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 100
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置
+    // 用于处理 lazyload 引起的 cls 导致的定位失败问题
+    // option.observer = false
+    if (option.observer) {
+      setTimeout(() => {
+        if (volantis.scroll.ele != ele) {
+          return
+        }
+        volantis.scroll.unengine.push(() => {
+          let me = ele.getBoundingClientRect().top
+          if(!(me >= -option.observerDic && me <= option.observerDic)){
+            volantis.scroll.to(ele, option)
+          }
+          volantis.scroll.unengine.remove("unengineObserver")
+        },"unengineObserver")
+      },1000)
+    }
+  }
+  /********************** Content Visibility ********************************/
+  // 见 source/css/first.styl 如果遇到任何问题 删除 .post-story 即可
+  // 一个元素被声明 content-visibility 属性后 如果元素不在 viewport 中 浏览器不会计算其后代元素样式和属性 从而节省 Style & Layout 耗时
+  // content-visibility 的副作用: 锚点失效 等等(实验初期 暂不明确), 使用此方法清除样式
+  volantis.cleanContentVisibility = ()=>{
+    if (document.querySelector(".post-story")) {
+      console.log("cleanContentVisibility");
+      document.querySelectorAll(".post-story").forEach(e=>{
+        e.classList.remove("post-story")
+      })
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+  /******************************************************************************/
+  //图像加载出错时的处理
+  function errorImgAvatar(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg";
+    img.onerror = null;
+  }
+  function errorImgCover(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg";
+    img.onerror = null;
+  }
+  /******************************************************************************/
+</script>
+
+  <!-- import head_end begin -->
+  <!-- import head_end end -->
+  <!-- Custom Files headEnd begin-->
+  
+  <!-- Custom Files headEnd end-->
+  <!-- front-matter head_end begin -->
+  <!-- front-matter head_end end -->
+</head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <!-- import body_begin begin-->
+    <!-- import body_begin end-->
+    <!-- Custom Files bodyBegin begin-->
+    
+    <!-- Custom Files bodyBegin end-->
+    <!-- front-matter body_begin begin -->
+    <!-- front-matter body_begin end -->
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fa-solid fa-comments fa-fw" target="_self"  href="/" onclick="return false;" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fa-solid fa-list fa-fw" target="_self"  href="/" onclick="return false;" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                target="_blank" rel="noopener" href="http://holys2.github.io" title="更多"
+                  
+                  
+                  
+                    active-action="action-http:holys2githubio"
+                  >
+                  <i class='fa-solid fa-user fa-fw'></i>更多
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fa-solid fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fa-solid fa-search fa-fw" target="_self" href="/" onclick="return false;" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fa-solid fa-bars fa-fw" target="_self" href="/" onclick="return false;" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                target="_blank" rel="noopener" href="http://holys2.github.io" title="更多"
+                  
+                  
+                  
+                    active-action="action-http:holys2githubio"
+                  >
+                  <i class='fa-solid fa-user fa-fw'></i>更多
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
+      <div id="none" class='cover-wrapper post search' style="display: none;">
+        
+  <div class='cover-bg lazyload placeholder' data-bg="https://mfjblog-pic.oss-cn-beijing.aliyuncs.com/img/1071826.jpg"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">holys2的博客</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="搜一下吧" />
+          <i class="icon fa-solid fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              active-action="action-v4getting-started">
+              <p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              active-action="action-faqs">
+              <p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              active-action="action-examples">
+              <p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              active-action="action-contributors">
+              <p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              active-action="action-archives">
+              <p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              active-action="action-https:githubcomvolantis-xhexo-theme-volantis">
+              <p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/19/安卓逆向/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="holys2 blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="holys2 blog">
+    <meta itemprop="description" content="">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        安卓逆向学习
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/apple-touch-icon.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/">安卓逆向</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/" itemprop="url"><span itemprop="name">安卓逆向</span></a>
+      </span>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-19T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Dec 19, 2023</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h2 id="APK"><a href="#APK" class="headerlink" title="APK"></a>APK</h2><h3 id="1-了解APK文件结构"><a href="#1-了解APK文件结构" class="headerlink" title="1.了解APK文件结构"></a>1.了解APK文件结构</h3><p>apk全称 Android Package,它相当于一个压缩文件，只有在电脑上将apk后缀改为rar即可解压</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>注释</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>assets目录</td>
+<td>存放APK的静态资源文件，比如视频，音频，图片等</td>
+<td></td>
+</tr>
+<tr>
+<td>lib 目录</td>
+<td>armeabi-v7a基本通用所有android设备，arm64-v8a只适用于64位的android设备，x86常见用于android模拟器，其目录下的.so文件是c或c++编译的动态链接库文件</td>
+<td></td>
+</tr>
+<tr>
+<td>META-INF目录</td>
+<td>保存应用的签名信息，签名信息可以验证APK文件的完整性，相当于APK的身份证(验证文件是否又被修改)</td>
+<td></td>
+</tr>
+<tr>
+<td>res目录</td>
+<td>res目录存放资源文件，包括图片，字符串等等，APK的脸蛋由他的layout文件设计</td>
+<td></td>
+</tr>
+<tr>
+<td>AndroidMainfest.xml文件</td>
+<td>APK的应用清单信息，它描述了应用的名字，版本，权限，引用的库文件等等信息</td>
+<td></td>
+</tr>
+<tr>
+<td>classes.dex文件</td>
+<td>classes.dex是java源码编译后生成的java字节码文件，APK运行的主要逻辑</td>
+<td></td>
+</tr>
+<tr>
+<td>resources.arsc文件</td>
+<td>resources.arsc是编译后的二进制资源文件，它是一个映射表，映射着资源和id，通过R文件中的id就可以找到对应的资源</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/../image/217.png" class="lazyload" data-srcset="/../image/217.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="217"></p>
+<p>这个kotlin文件说明它是基于kotlin开发的</p>
+<h3 id="2-双开及原理"><a href="#2-双开及原理" class="headerlink" title="2.双开及原理"></a>2.双开及原理</h3><p>双开：简单来说，就是手机同时运行两个或多个相同的应用，例如同时运行两个微信</p>
+<table>
+<thead>
+<tr>
+<th>原理</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>修改包名</td>
+<td>让手机系统认为这是2个APP，这样的话就能生成2个数据存储路径，此时的多开就等于你打开了两个互不干扰的APP</td>
+</tr>
+<tr>
+<td>修改Framework</td>
+<td>对于有系统修改权限的厂商，可以修改Framework来实现双开的目的，例如：小米自带多开</td>
+</tr>
+<tr>
+<td>通过虚拟化技术实现</td>
+<td>虚拟Framework层、虚拟文件系统、模拟Android对组件的管理、虚拟应用进程管理 等一整套虚拟技术，将APK复制一份到虚拟空间中运行，例如：平行空间</td>
+</tr>
+<tr>
+<td>以插件机制运行</td>
+<td>利用反射替换，动态代理，hook了系统的大部分与system—server进程通讯的函数，以此作为“欺上瞒下”的目的，欺骗系统“以为”只有一个apk在运行，瞒过插件让其“认为”自己已经安装。例如：VirtualApp</td>
+</tr>
+</tbody></table>
+<h3 id="3-汉化APK"><a href="#3-汉化APK" class="headerlink" title="3.汉化APK"></a>3.汉化APK</h3><p>汉化：使用专门的工具对外文版的软件资源进行读取、翻译、修改、回写等一系列处理，使软件的菜单、对话框、提示等用户界面显示为中文，而程序的内核和功能保持不变，这个过程即为软件汉化</p>
+<p>基本上字符串都是在arsc里，建议一键汉化，然后再润色。 少量没汉化到的字符串参考视频中的方法定位去逐个汉化。</p>
+<p>流程图</p>
+<p>这里还需要注意的是，如果要直装应用，那就应该先签名安装，看看是否有签名校验导致的闪退 </p>
+<p><img src="/../image/218.png" class="lazyload" data-srcset="/../image/218.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="218"></p>
+<h3 id="4-初识AndroidMainfest-xml"><a href="#4-初识AndroidMainfest-xml" class="headerlink" title="4.初识AndroidMainfest.xml"></a>4.初识AndroidMainfest.xml</h3><hr>
+<p>AndroidManifest.xml文件是整个应用程序的信息描述文件，定义了应用程序中包含的Activity,Service,Content provider和BroadcastReceiver组件信息。每个应用程序在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%A0%B9%E7%9B%AE%E5%BD%95&spm=1001.2101.3001.7020">根目录</a>下必须包含一个AndroidManifest.xml文件，且文件名不能修改。它描述了package中暴露的组件，他们各自的实现类，各种能被处理的数据和启动位置。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>versionCode</td>
+<td>版本号，主要用来更新，例如:12</td>
+</tr>
+<tr>
+<td>versionName</td>
+<td>版本名，给用户看的，例如:1.2</td>
+</tr>
+<tr>
+<td>package</td>
+<td>包名，例如：com.zj.52pj.demo</td>
+</tr>
+<tr>
+<td>uses-permission android:name&#x3D;””</td>
+<td>应用权限，例如：android.permission.INTERNET 代表网络权限</td>
+</tr>
+<tr>
+<td>android:label&#x3D;”@string&#x2F;app_name”</td>
+<td>应用名称</td>
+</tr>
+<tr>
+<td>android:icon&#x3D;”@mipmap&#x2F;ic_launcher”</td>
+<td>应用图标路径</td>
+</tr>
+<tr>
+<td>android:debuggable&#x3D;”true”</td>
+<td>应用是否开启debug权限</td>
+</tr>
+</tbody></table>
+<h2 id="smali"><a href="#smali" class="headerlink" title="smali"></a>smali</h2><p>JVM是JAVA虚拟机，运行JAVA字节码程序</p>
+<p>Dalvik是Google专门为Android设计的一个虚拟机，Dalvik有专属的文件执行格式dex(Dalvik executable)</p>
+<p>Art(Android Runtime)相当于Dalvik的升级版，本质与Dalvik无异</p>
+<h3 id="smali及其语法"><a href="#smali及其语法" class="headerlink" title="smali及其语法"></a>smali及其语法</h3><p>smali是Dalvik的寄存器语言，smali代码是dex反编译而来的。</p>
+<p>关键字</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.class</td>
+<td>类名</td>
+</tr>
+<tr>
+<td>.super</td>
+<td>父类名，继承的上级类名名称</td>
+</tr>
+<tr>
+<td>.source</td>
+<td>源名</td>
+</tr>
+<tr>
+<td>.field</td>
+<td>变量</td>
+</tr>
+<tr>
+<td>.method</td>
+<td>方法名</td>
+</tr>
+<tr>
+<td>.register</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>.end method</td>
+<td>方法名的结束</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公有</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>半公开，只有同一家人才能用</td>
+</tr>
+<tr>
+<td>private</td>
+<td>私有，只能自己使用</td>
+</tr>
+<tr>
+<td>.parameter</td>
+<td>方法参数</td>
+</tr>
+<tr>
+<td>.prologue</td>
+<td>方法开始</td>
+</tr>
+<tr>
+<td>.line xxx</td>
+<td>位于第xxx行</td>
+</tr>
+</tbody></table>
+<p>数据类型对应</p>
+<p>跟C语言联想起来，其实一样的</p>
+<table>
+<thead>
+<tr>
+<th>smali类型</th>
+<th>java类型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V</td>
+<td>void</td>
+<td>无返回值</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>boolean</td>
+<td>布尔值类型，返回0或1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>byte</td>
+<td>字节类型，返回字节</td>
+</tr>
+<tr>
+<td>S</td>
+<td>short</td>
+<td>短整数类型，返回数字</td>
+</tr>
+<tr>
+<td>C</td>
+<td>char</td>
+<td>字符类型，返回字符</td>
+</tr>
+<tr>
+<td>I</td>
+<td>int</td>
+<td>整数类型，返回数字</td>
+</tr>
+<tr>
+<td>J</td>
+<td>long （64位 需要2个寄存器存储）</td>
+<td>长整数类型，返回数字</td>
+</tr>
+<tr>
+<td>F</td>
+<td>float</td>
+<td>单浮点类型，返回数字</td>
+</tr>
+<tr>
+<td>D</td>
+<td>double （64位 需要2个寄存器存储）</td>
+<td>双浮点类型，返回数字</td>
+</tr>
+<tr>
+<td>string</td>
+<td>String</td>
+<td>文本类型，返回字符串</td>
+</tr>
+<tr>
+<td>Lxxx&#x2F;xxx&#x2F;xxx</td>
+<td>object</td>
+<td>对象类型，返回对象</td>
+</tr>
+</tbody></table>
+<p>常用指令</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>const</td>
+<td>重写整数属性，真假属性内容，只能是数字类型</td>
+</tr>
+<tr>
+<td>const-string</td>
+<td>重写字符串内容</td>
+</tr>
+<tr>
+<td>const-wide</td>
+<td>重写长整数类型，多用于修改到期时间。</td>
+</tr>
+<tr>
+<td><strong>return</strong></td>
+<td><strong>返回指令</strong></td>
+</tr>
+<tr>
+<td><strong>if-eq</strong></td>
+<td><strong>全称equal(a&#x3D;b)，比较寄存器ab内容，相同则跳</strong></td>
+</tr>
+<tr>
+<td><strong>if-ne</strong></td>
+<td><strong>全称not equal(a!&#x3D;b)，ab内容不相同则跳</strong></td>
+</tr>
+<tr>
+<td><strong>if-eqz</strong></td>
+<td><strong>全称equal zero(a&#x3D;0)，z即是0的标记，a等于0则跳</strong></td>
+</tr>
+<tr>
+<td><strong>if-nez</strong></td>
+<td><strong>全称not equal zero(a!&#x3D;0)，a不等于0则跳</strong></td>
+</tr>
+<tr>
+<td><strong>if-ge</strong></td>
+<td><strong>全称garden equal(a&gt;&#x3D;b)，a大于或等于则跳</strong></td>
+</tr>
+<tr>
+<td><strong>if-le</strong></td>
+<td><strong>全称little equal(a&lt;&#x3D;b)，a小于或等于则跳</strong></td>
+</tr>
+<tr>
+<td><strong>goto</strong></td>
+<td><strong>强制跳到指定位置</strong></td>
+</tr>
+<tr>
+<td>switch</td>
+<td>分支跳转，一般会有多个分支线，并根据指令跳转到适当位置</td>
+</tr>
+<tr>
+<td>iget</td>
+<td>获取寄存器数据</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>上面加粗的字体跟C语言里面的相差不大</p>
+<p>其余指令可用语法工具查询</p>
+<p>定位方法：搜索弹窗关键字、抓取按钮id</p>
+<p>使用jadk 的时候输入中文搜索可能会搜索不到，因为它默认会把中文字符转化为Unicode编码</p>
+<p><img src="/../image/219.png" class="lazyload" data-srcset="/../image/219.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="219"></p>
+<p><img src="/../image/220.png" class="lazyload" data-srcset="/../image/220.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="220"></p>
+<h4 id="1-修改判断"><a href="#1-修改判断" class="headerlink" title="1.修改判断"></a>1.修改判断</h4><p><img src="/../image/221.png" class="lazyload" data-srcset="/../image/221.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="221"></p>
+<p>把这个vip判断注释掉</p>
+<p><img src="/../image/222.png" class="lazyload" data-srcset="/../image/222.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="222"></p>
+<p>然后我们保存查看效果</p>
+<p><img src="/../image/223.png" class="lazyload" data-srcset="/../image/223.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="223"></p>
+<h4 id="2-修改寄存器的值"><a href="#2-修改寄存器的值" class="headerlink" title="2.修改寄存器的值"></a>2.修改寄存器的值</h4><p><img src="/../image/224.png" class="lazyload" data-srcset="/../image/224.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="224"></p>
+<p>我们执行这个if-ge 条件跳转到cond_15,我们可以双击这个cond_15然后就会出现一个跳转，然后我们就可以跳转到下一条指令的地方.</p>
+<p><img src="/../image/225.png" class="lazyload" data-srcset="/../image/225.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="225"></p>
+<p>这个是个布尔类型的判断</p>
+<p><img src="/../image/226.png" class="lazyload" data-srcset="/../image/226.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="226"></p>
+<p>它只需要和p0比较就可以进行下面的语句，把它设置成1，这样就会返回true</p>
+<h4 id="3-强制跳转"><a href="#3-强制跳转" class="headerlink" title="3.强制跳转"></a>3.强制跳转</h4><p>利用goto语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">goto: label1   </span><br><span class="line">:label1</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/227.png" class="lazyload" data-srcset="/../image/227.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="227"></p>
+<h3 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h3><p><img src="/../image/228.png" class="lazyload" data-srcset="/../image/228.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="228"></p>
+<p>首先这个是个登录页面，它提示我们登录失败,然后我们需要定位这个字符串</p>
+<p><img src="/../image/229.png" class="lazyload" data-srcset="/../image/229.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="229"></p>
+<p>我们用jadx很快的定位到了这个字符串的地址，然后我们发现这是一个判断函数，name&#x3D;&#x3D;hfdcxy  pass&#x3D;&#x3D;1234</p>
+<p>我们就得到用户名和密码了</p>
+<p><img src="/../image/230.png" class="lazyload" data-srcset="/../image/230.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="230"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="广告"><a href="#广告" class="headerlink" title="广告"></a>广告</h2><h3 id="1-广告类型"><a href="#1-广告类型" class="headerlink" title="1.广告类型"></a>1.广告类型</h3><p>启动广告 弹窗&amp;更新广告 横幅广告</p>
+<img src="../image/231.png" class="lazyload" data-srcset="../image/231.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="231" style="zoom:67%;" />
+
+<h3 id="2-安卓四大组件"><a href="#2-安卓四大组件" class="headerlink" title="2.安卓四大组件"></a>2.安卓四大组件</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Activity(活动)</td>
+<td>在应用中的一个Activity可以用来表示一个界面，意思可以理解为“活动”，即一个活动开始，代表 Activity组件启动，活动结束，代表一个Activity的生命周期结束。一个Android应用必须通过Activity来运行和启动，Activity的生命周期交给系统统一管理。</td>
+</tr>
+<tr>
+<td>Service(服务)</td>
+<td>Service它可以在后台执行长时间运行操作而没有用户界面的应用组件，不依赖任何用户界面，例如后台播放音乐，后台下载文件等。</td>
+</tr>
+<tr>
+<td>Broadcast Receiver(广播接收器)</td>
+<td>一个用于接收广播信息，并做出对应处理的组件。比如我们常见的系统广播：通知时区改变、电量低、用户改变了语言选项等。</td>
+</tr>
+<tr>
+<td>Content Provider(内容提供者)</td>
+<td>作为应用程序之间唯一的共享数据的途径，Content Provider主要的功能就是存储并检索数据以及向其他应用程序提供访问数据的接口。Android内置的许多数据都是使用Content Provider形式，供开发者调用的（如视频，音频，图片，通讯录等）</td>
+</tr>
+</tbody></table>
+<p>启动广告流程： 启动Activity-&gt;广告Activity-&gt;主页Activity</p>
+<p>修改方法： 1.修改加载时间 2.Acitivity切换定位，修改Intent的Activity类名</p>
+<p>1.修改加载时间，我们可以将加载时间改为0，这样基本上就相当于直接跳过</p>
+<p>2.这种方法不建议，因为它有的时候可能会导致闪退的情况</p>
+<p>第三种方法</p>
+<p><img src="/../image/232.png" class="lazyload" data-srcset="/../image/232.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="232"></p>
+<p>我们直接定位到它的具体位置</p>
+<p>然后将这个AdActivity改为跟其他关卡一样</p>
+<h3 id="3-Activity生命周期"><a href="#3-Activity生命周期" class="headerlink" title="3.Activity生命周期"></a>3.Activity生命周期</h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onCreate()</td>
+<td>一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
+</tr>
+<tr>
+<td>onStart()</td>
+<td>当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
+</tr>
+<tr>
+<td>onResume()</td>
+<td>这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
+</tr>
+<tr>
+<td>onPause()</td>
+<td>这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
+</tr>
+<tr>
+<td>onStop()</td>
+<td>这个方法是在Activity完全不可见的时候调用的。</td>
+</tr>
+<tr>
+<td>onDestroy()</td>
+<td>这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
+</tr>
+<tr>
+<td>onRestart()</td>
+<td>当Activity从停止stop状态恢进入start状态时调用状态。</td>
+</tr>
+</tbody></table>
+<p>finish()这种方法来结束Activity</p>
+<h3 id="4-弹窗定位-堆栈分析"><a href="#4-弹窗定位-堆栈分析" class="headerlink" title="4.弹窗定位&amp;堆栈分析"></a>4.弹窗定位&amp;堆栈分析</h3><p>修改方法： </p>
+<p>1.修改xml中的versiocode </p>
+<p>2.Hook弹窗(推荐算法助手开启弹窗定位) </p>
+<p>3.修改dex弹窗代码 </p>
+<p><img src="/../image/234.png" class="lazyload" data-srcset="/../image/234.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="234"></p>
+<p><img src="/../image/235.png" class="lazyload" data-srcset="/../image/235.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="235"></p>
+<p>什么是堆栈呢？就是代码的逻辑运行顺序</p>
+<p>4.抓包修改响应体(也可以路由器拦截)</p>
+<p><img src="/../image/237.png" class="lazyload" data-srcset="/../image/237.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="237"></p>
+<p>我们想要使这个横幅广告消失，或者看不见，我们可以使用开发助手中的布局查看</p>
+<p><img src="/../image/238.png" class="lazyload" data-srcset="/../image/238.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="238"></p>
+<p>我们得到它的id</p>
+<p><img src="/../image/239.png" class="lazyload" data-srcset="/../image/239.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="239"></p>
+<p>这时候我们只需要把高度改为0就行</p>
+<img src="../image/240.png" class="lazyload" data-srcset="../image/240.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="240" style="zoom:50%;" />
+
+<h3 id="5-布局优化"><a href="#5-布局优化" class="headerlink" title="5.布局优化"></a>5.布局优化</h3><p>1.开发者助手抓布局 2.MT管理器xml搜索定位 3.修改xml代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:visibility=&quot;gone&quot;</span><br></pre></td></tr></table></figure>
+
+<img src="../image/236.png" class="lazyload" data-srcset="../image/236.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="236" style="zoom:50%;" />
+
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><img src="../image/241.png" class="lazyload" data-srcset="../image/241.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="241" style="zoom:67%;" />
+
+<p>这个小练习是定位到这个弹窗</p>
+<img src="../image/244.png" class="lazyload" data-srcset="../image/244.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="244" style="zoom: 67%;" />
+
+<p>我通过关键字定位，然后将smali代码转化成Java发现它这里有三个弹窗函数</p>
+<p>我选择把这三个show()给注释掉</p>
+<img src="../image/245.png" class="lazyload" data-srcset="../image/245.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="245" style="zoom: 67%;" />
+
+<h2 id="IDA-so文件调试"><a href="#IDA-so文件调试" class="headerlink" title="IDA-so文件调试"></a>IDA-so文件调试</h2><img src="../image/275.png" class="lazyload" data-srcset="../image/275.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="275" style="zoom:50%;" />
+
+<h3 id="一-JEB反编译APK-静态分析Java代码"><a href="#一-JEB反编译APK-静态分析Java代码" class="headerlink" title="一. JEB反编译APK 静态分析Java代码"></a><strong>一. JEB反编译APK 静态分析Java代码</strong></h3><p>打开AndroidManifest.xml查看程序入口 这里 android:debuggable&#x3D;”true”表示此apk可以动态调试 如果是false动态调试的时候需要改成true，否则不可被动态调试。</p>
+<p><img src="/../image/276.png" class="lazyload" data-srcset="/../image/276.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="276"></p>
+<p>2.找到MainActivity入口类 并反编译成java代码 </p>
+<p><img src="/../image/277.png" class="lazyload" data-srcset="/../image/277.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="277"></p>
+<h3 id="二-IDA静态分析找位置"><a href="#二-IDA静态分析找位置" class="headerlink" title="二 IDA静态分析找位置"></a><strong>二 IDA静态分析找位置</strong></h3><p><img src="/../image/278.png" class="lazyload" data-srcset="/../image/278.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="278"></p>
+<img src="../image/279.png" class="lazyload" data-srcset="../image/279.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="279" style="zoom: 67%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">res</span><span class="params">(<span class="type">char</span>* s)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> len = <span class="number">32</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">char</span> temp = s[i];</span><br><span class="line">		s[i] = s[i + <span class="number">16</span>];</span><br><span class="line">		s[i + <span class="number">16</span>] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">char</span> temp = s[<span class="number">0</span>];</span><br><span class="line">	s[<span class="number">0</span>] = s[<span class="number">1</span>];</span><br><span class="line">	s[<span class="number">1</span>] = temp;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt; len; i += <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">char</span> temp = s[i];</span><br><span class="line">		s[i] = s[i + <span class="number">1</span>];</span><br><span class="line">		s[i + <span class="number">1</span>] = temp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> str[] = <span class="string">&quot;f72c5a36569418a20907b55be5bf95ad&quot;</span>;</span><br><span class="line">	res(str);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;flag&#123;%s&#125;&quot;</span>, str);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后解出flag</p>
+<h3 id="三-IDA动态调试"><a href="#三-IDA动态调试" class="headerlink" title="三.IDA动态调试"></a><strong>三.IDA动态调试</strong></h3><p><img src="/../image/280.png" class="lazyload" data-srcset="/../image/280.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="280"></p>
+<p>然后加入权限</p>
+<p><img src="/../image/281.png" class="lazyload" data-srcset="/../image/281.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="281"></p>
+<p>之后新开一个cmd窗口转发端口号</p>
+<p><img src="/../image/282.png" class="lazyload" data-srcset="/../image/282.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="282"></p>
+<p>这个是为了开启调试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;com.xxx.xxxx/.MainActivity”  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdb -connect com.sun.jdi.SocketAttach:port=8700,hostname=localhost</span><br></pre></td></tr></table></figure>
+
+<p>然后打开ida</p>
+<p><img src="/../image/283.png" class="lazyload" data-srcset="/../image/283.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="283"></p>
+<p>这里我用的是真机所以我选择arm，模拟器用Linux</p>
+<p><img src="/../image/284.png" class="lazyload" data-srcset="/../image/284.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="284"></p>
+<p>勾选这个几个</p>
+<p><img src="/../image/285.png" class="lazyload" data-srcset="/../image/285.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="285"></p>
+<p>先点启动后下断点，然后再在手机上输入</p>
+<h2 id="动态调试-Log插桩"><a href="#动态调试-Log插桩" class="headerlink" title="动态调试&amp;Log插桩"></a>动态调试&amp;Log插桩</h2><h3 id="动态调试步骤"><a href="#动态调试步骤" class="headerlink" title="动态调试步骤"></a>动态调试步骤</h3><h4 id="1-修改debug权限"><a href="#1-修改debug权限" class="headerlink" title="1.修改debug权限"></a>1.修改debug权限</h4><p>方法一:在AndroidManifest.xml里添加可调试权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:debuggable=&quot;true&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-端口转发以及开启adb权限"><a href="#2-端口转发以及开启adb权限" class="headerlink" title="2.端口转发以及开启adb权限"></a>2.端口转发以及开启adb权限</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:23946 tcp:23946</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-下段点"><a href="#3-下段点" class="headerlink" title="3.下段点"></a>3.下段点</h4><p>ctrl+b下断点</p>
+<h4 id="4-debug模式启动"><a href="#4-debug模式启动" class="headerlink" title="4.debug模式启动"></a>4.debug模式启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell am start -D -n com.zj.wuaipojie/.ui.MainActivity</span><br></pre></td></tr></table></figure>
+
+<p>adb shell am start -D -n adb shell am start -D -n 包名&#x2F;类名 am start -n 表示启动一个activity am start -D 表示将应用设置为可调试模式</p>
+<p><img src="/../image/246.png" class="lazyload" data-srcset="/../image/246.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="246"></p>
+<p>这样表示可以调试了</p>
+<h4 id="5-Jeb附加调试进程"><a href="#5-Jeb附加调试进程" class="headerlink" title="5.Jeb附加调试进程"></a>5.Jeb附加调试进程</h4><h3 id="Log插桩"><a href="#Log插桩" class="headerlink" title="Log插桩"></a>Log插桩</h3><p>定义：Log插桩指的是反编译APK文件时，在对应的smali文件里，添加相应的smali代码，将程序中的关键信息，以log日志的形式进行输出。</p>
+<p>调用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-static &#123;对应寄存器&#125;, Lcom/mtools/LogUtils;-&gt;v(Ljava/lang/Object;)V</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/247.png" class="lazyload" data-srcset="/../image/247.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="247"></p>
+<pre><code> 然后我们就得到了它的日志
+</code></pre>
+<img src="../image/248.png" class="lazyload" data-srcset="../image/248.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="248" style="zoom:50%;" />
+
+<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p><img src="/../image/249.png" class="lazyload" data-srcset="/../image/249.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="249"></p>
+<p><img src="/../image/250.png" class="lazyload" data-srcset="/../image/250.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="250"></p>
+<p>方法一:</p>
+<p>在这里下个log插桩</p>
+<p><img src="/../image/251.png" class="lazyload" data-srcset="/../image/251.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="251"></p>
+<p>得到注册码</p>
+<p>方法二:</p>
+<p> 通过adb调试<img src="/../image/252.png" class="lazyload" data-srcset="/../image/252.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="252"></p>
+<h2 id="校验的N次方-签名校验对抗的多种姿势、PM代理、IO重定向"><a href="#校验的N次方-签名校验对抗的多种姿势、PM代理、IO重定向" class="headerlink" title="校验的N次方-签名校验对抗的多种姿势、PM代理、IO重定向"></a>校验的N次方-签名校验对抗的多种姿势、PM代理、IO重定向</h2><h3 id="1-什么是校验"><a href="#1-什么是校验" class="headerlink" title="1.什么是校验"></a>1.什么是校验</h3><p>是开发者在数据传送时采用的一种校正数据的一种方式 常见的校验有:签名校验(最常见)、dexcrc校验、apk完整性校验、路径文件校验等</p>
+<h3 id="2-什么是APK签名"><a href="#2-什么是APK签名" class="headerlink" title="2.什么是APK签名"></a>2.什么是APK签名</h3><p>通过对 Apk 进行签名，开发者可以证明对 Apk 的所有权和控制权，可用于安装和更新其应用。而在 Android 设备上的安装 Apk ，如果是一个没有被签名的 Apk，则会被拒绝安装。在安装 Apk 的时候，软件包管理器也会验证 Apk 是否已经被正确签名，并且通过签名证书和数据摘要验证是否合法没有被篡改。只有确认安全无篡改的情况下，才允许安装在设备上。</p>
+<p>简单来说，APK 的签名主要作用有两个：</p>
+<ol>
+<li>证明 APK 的所有者。</li>
+<li>允许 Android 市场和设备校验 APK 的正确性。</li>
+</ol>
+<p>Android 目前支持以下四种应用签名方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v1 方案：基于 JAR 签名。</span><br><span class="line"></span><br><span class="line">v2 方案：APK 签名方案 v2（在 Android 7.0 中引入）</span><br><span class="line"></span><br><span class="line">v3 方案：APK 签名方案 v3（在 Android 9 中引入）</span><br><span class="line"></span><br><span class="line">v4 方案：APK 签名方案 v4（在 Android 11 中引入）</span><br></pre></td></tr></table></figure>
+
+
+
+<p>V1 签名的机制主要就在 META-INF 目录下的三个文件，MANIFEST.MF，ANDROID.SF，ANDROID.RSA，他们都是 V1 签名的产物。 （1）MANIFEST.MF：这是摘要文件。程序遍历Apk包中的所有文件(entry)，对非文件夹非签名文件的文件，逐个用SHA1(安全哈希算法)生成摘要信息，再用Base64进行编码。如果你改变了apk包中的文件，那么在apk安装校验时，改变后的文件摘要信息与MANIFEST.MF的检验信息不同，于是程序就不能成功安装</p>
+<p><img src="/../image/253.png" class="lazyload" data-srcset="/../image/253.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="253"></p>
+<p>（2）c.SF：这是对摘要的签名文件。对前一步生成的MANIFEST.MF，使用SHA1-RSA算法，用开发者的私钥进行签名。在安装时只能使用公钥才能解密它。解密之后，将它与未加密的摘要信息（即，MANIFEST.MF文件）进行对比，如果相符，则表明内容没有被异常修改。</p>
+<p><img src="/../image/254.png" class="lazyload" data-srcset="/../image/254.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="254"></p>
+<p>（3）ANDROID.RSA文件中保存了公钥、所采用的加密算法等信息。</p>
+<p><img src="/../image/255.png" class="lazyload" data-srcset="/../image/255.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="255"></p>
+<p>在某些情况下，直接对apk进行v1签名可以绕过apk的签名校验</p>
+<p>v2方案会将 APK 文件视为 blob，并对整个文件进行签名检查。对 APK 进行的任何修改（包括对 ZIP 元数据进行的修改）都会使 APK 签名作废。这种形式的 APK 验证不仅速度要快得多，而且能够发现更多种未经授权的修改。</p>
+<h3 id="3-什么是签名校验"><a href="#3-什么是签名校验" class="headerlink" title="3.什么是签名校验"></a>3.什么是签名校验</h3><p>如何判断是否有签名校验？ 不做任何修改，直接签名安装，应用闪退则说明大概率有签名校验</p>
+<p>一般来说，普通的签名校验会导致软件的闪退，黑屏，卡启动页等 当然，以上都算是比较好的，有一些比较狠的作者，则会直接rm -rf &#x2F;，把基带都格掉的一键变砖。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kill/killProcess-----kill/KillProcess()可以杀死当前应用活动的进程，这一操作将会把所有该进程内的资源（包括线程全部清理掉）.当然，由于ActivityManager时刻监听着进程，一旦发现进程被非正常Kill，它将会试图去重启这个进程。这就是为什么，有时候当我们试图这样去结束掉应用时，发现它又自动重新启动的原因.</span><br><span class="line"></span><br><span class="line">system.exit-----杀死了整个进程，这时候活动所占的资源也会被释放。</span><br><span class="line"></span><br><span class="line">finish----------仅仅针对Activity，当调用finish()时，只是将活动推向后台，并没有立即释放内存，活动的资源并没有被清理</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/256.png" class="lazyload" data-srcset="/../image/256.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="256"></p>
+<p>在我个人见过最恶心的签名校验中，当属三角校验(低调大佬教的)最烦人。 所谓三角校验，就是so检测dex，动态加载的dex(在软件运行时会解压释放一段dex文件，检测完后就删除)检测so，dex检测动态加载的dex</p>
+<p>获取普通签名的方法</p>
+<img src="../image/257.png" class="lazyload" data-srcset="../image/257.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="257" style="zoom:50%;" />
+
+<p>这里有两种方法</p>
+<p><img src="/../image/258.png" class="lazyload" data-srcset="/../image/258.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="258"></p>
+<p>这个checksign函数里面最重要的是这个if判断</p>
+<p><img src="/../image/259.png" class="lazyload" data-srcset="/../image/259.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="259">这个是要比较的字符串，然后第一种的方法就是把这个if判断条件改了</p>
+<img src="../image/260.png" class="lazyload" data-srcset="../image/260.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="260" style="zoom:50%;" />
+
+<p>第二种就是把这个字符串改成自己的那个</p>
+<p><img src="/../image/263.png" class="lazyload" data-srcset="/../image/263.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="263"></p>
+<p><img src="/../image/262.png" class="lazyload" data-srcset="/../image/262.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="262"></p>
+<p>普通获取签名校验代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private boolean SignCheck() &#123;</span><br><span class="line">    String trueSignMD5 = &quot;d0add9987c7c84aeb7198c3ff26ca152&quot;;</span><br><span class="line">    String nowSignMD5 = &quot;&quot;;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 得到签名的MD5</span><br><span class="line">        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(),PackageManager.GET_SIGNATURES);</span><br><span class="line">        Signature[] signs = packageInfo.signatures;</span><br><span class="line">        String signBase64 = Base64Util.encodeToString(signs[0].toByteArray());</span><br><span class="line">        nowSignMD5 = MD5Utils.MD5(signBase64);</span><br><span class="line">    &#125; catch (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return trueSignMD5.equals(nowSignMD5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>系统将应用的签名信息封装在 PackageInfo 中，调用 PackageManager 的 getPackageInfo(String packageName, int flags) 即可获取指定包名的签名信息</p>
+<h3 id="4-签名校验对抗"><a href="#4-签名校验对抗" class="headerlink" title="4.签名校验对抗"></a>4.签名校验对抗</h3><p>方法一:核心破解插件，不签名安装应用</p>
+<p>方法二:一键过签名工具，例如MT、NP、ARMPro、CNFIX、Modex的去除签名校验功能</p>
+<p>方法三:具体分析签名校验逻辑(手撕签名校验)</p>
+<p>方法四:io重定向–VA&amp;SVC：ptrace+seccomp <a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-273160.htm">SVC的TraceHook沙箱的实现&amp;无痕Hook实现思路</a></p>
+<p>方法五:去作者家严刑拷打拿到.jks文件和密码</p>
+<h3 id="5-手动实现PM代理"><a href="#5-手动实现PM代理" class="headerlink" title="5.手动实现PM代理"></a>5.手动实现PM代理</h3><h4 id="1-什么是PMS"><a href="#1-什么是PMS" class="headerlink" title="1.什么是PMS"></a>1.什么是PMS</h4><p>思路源自：<a target="_blank" rel="noopener" href="https://github.com/fourbrother/HookPmsSignature">Android中Hook 应用签名方法</a></p>
+<p>PackageManagerService（简称PMS），是Android系统核心服务之一，处理包管理相关的工作，常见的比如安装、卸载应用等。</p>
+<h4 id="2-实现方法以及原理解析"><a href="#2-实现方法以及原理解析" class="headerlink" title="2.实现方法以及原理解析"></a>2.实现方法以及原理解析</h4><p>HOOK PMS代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package com.zj.hookpms;</span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.content.pm.PackageManager;</span><br><span class="line">import android.util.Log;</span><br><span class="line"></span><br><span class="line">public class ServiceManagerWraper &#123;</span><br><span class="line"></span><br><span class="line">    public final static String ZJ = &quot;ZJ595&quot;;</span><br><span class="line"></span><br><span class="line">    public static void hookPMS(Context context, String signed, String appPkgName, int hashCode) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            // 获取全局的ActivityThread对象</span><br><span class="line">            Class&lt;?&gt; activityThreadClass = Class.forName(&quot;android.app.ActivityThread&quot;);</span><br><span class="line">            Method currentActivityThreadMethod =</span><br><span class="line">                    activityThreadClass.getDeclaredMethod(&quot;currentActivityThread&quot;);</span><br><span class="line">            Object currentActivityThread = currentActivityThreadMethod.invoke(null);</span><br><span class="line">            // 获取ActivityThread里面原始的sPackageManager</span><br><span class="line">            Field sPackageManagerField = activityThreadClass.getDeclaredField(&quot;sPackageManager&quot;);</span><br><span class="line">            sPackageManagerField.setAccessible(true);</span><br><span class="line">            Object sPackageManager = sPackageManagerField.get(currentActivityThread);</span><br><span class="line">            // 准备好代理对象, 用来替换原始的对象</span><br><span class="line">            Class&lt;?&gt; iPackageManagerInterface = Class.forName(&quot;android.content.pm.IPackageManager&quot;);</span><br><span class="line">            Object proxy = Proxy.newProxyInstance(</span><br><span class="line">                    iPackageManagerInterface.getClassLoader(),</span><br><span class="line">                    new Class&lt;?&gt;[]&#123;iPackageManagerInterface&#125;,</span><br><span class="line">                    new PmsHookBinderInvocationHandler(sPackageManager, signed, appPkgName, 0));</span><br><span class="line">            // 1. 替换掉ActivityThread里面的 sPackageManager 字段</span><br><span class="line">            sPackageManagerField.set(currentActivityThread, proxy);</span><br><span class="line">            // 2. 替换 ApplicationPackageManager里面的 mPM对象</span><br><span class="line">            PackageManager pm = context.getPackageManager();</span><br><span class="line">            Field mPmField = pm.getClass().getDeclaredField(&quot;mPM&quot;);</span><br><span class="line">            mPmField.setAccessible(true);</span><br><span class="line">            mPmField.set(pm, proxy);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            Log.d(ZJ, &quot;hook pms error:&quot; + Log.getStackTraceString(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void hookPMS(Context context) &#123;</span><br><span class="line">        String Sign = &quot;原包的签名信息&quot;;</span><br><span class="line">        hookPMS(context, Sign, &quot;com.zj.hookpms&quot;, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/264.png" class="lazyload" data-srcset="/../image/264.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="264"></p>
+<p>点击签名状态</p>
+<p><img src="/../image/265.png" class="lazyload" data-srcset="/../image/265.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="265"></p>
+<p>将原始数据复制为base64</p>
+<p>ActivityThread的静态变量sPackageManager ApplicationPackageManager对象里面的mPM变量</p>
+<h3 id="6-IO重定向"><a href="#6-IO重定向" class="headerlink" title="6.IO重定向"></a>6.IO重定向</h3><p>什么是IO重定向？</p>
+<p>例：在读A文件的时候指向B文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/virjarRatel/ratel-core">平头哥的核心代码</a> <a target="_blank" rel="noopener" href="https://github.com/asLody/VirtualApp">Virtual Engine for Android(Support 12.0 in business version)</a></p>
+<p>IO重定向可以干嘛？</p>
+<p>1，可以让文件只读，不可写</p>
+<p>2，禁止访问文件</p>
+<p>3，路径替换</p>
+<p>具体实现： 过签名检测(读取原包)  没有经过任何修改的安装包</p>
+<p>风控对抗(例:一个文件记录App启动的次数) </p>
+<p>过Root检测，Xposed检测(文件不可取)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line">using namespace std;  </span><br><span class="line">string packname;  </span><br><span class="line">string origpath;  </span><br><span class="line">string fakepath;  </span><br><span class="line">  </span><br><span class="line">int (*orig_open)(const char *pathname, int flags, ...);  </span><br><span class="line">int (*orig_openat)(int,const char *pathname, int flags, ...);  </span><br><span class="line">FILE *(*orig_fopen)(const char *filename, const char *mode);  </span><br><span class="line">static long (*orig_syscall)(long number, ...);  </span><br><span class="line">int (*orig__NR_openat)(int,const char *pathname, int flags, ...);  </span><br><span class="line">  </span><br><span class="line">void* (*orig_dlopen_CI)(const char *filename, int flag);  </span><br><span class="line">void* (*orig_dlopen_CIV)(const char *filename, int flag, const void *extinfo);  </span><br><span class="line">void* (*orig_dlopen_CIVV)(const char *name, int flags, const void *extinfo, void *caller_addr);  </span><br><span class="line">  </span><br><span class="line">static inline bool needs_mode(int flags) &#123;  </span><br><span class="line">    return ((flags &amp; O_CREAT) == O_CREAT) || ((flags &amp; O_TMPFILE) == O_TMPFILE);  </span><br><span class="line">&#125;  </span><br><span class="line">bool startsWith(string str, string sub)&#123;  </span><br><span class="line">    return str.find(sub)==0;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">bool endsWith(string s,string sub)&#123;  </span><br><span class="line">    return s.rfind(sub)==(s.length()-sub.length());  </span><br><span class="line">&#125;  </span><br><span class="line">bool isOrigAPK(string  path)&#123;  </span><br><span class="line">  </span><br><span class="line">    if(path==origpath)&#123;  </span><br><span class="line">        return true;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return false;  </span><br><span class="line">&#125;  </span><br><span class="line">//该函数的功能是在打开一个文件时进行拦截，并在满足特定条件时将文件路径替换为另一个路径  </span><br><span class="line">  </span><br><span class="line">//fake_open 函数有三个参数：  </span><br><span class="line">//pathname：一个字符串，表示要打开的文件的路径。  </span><br><span class="line">//flags：一个整数，表示打开文件的方式，例如只读、只写、读写等。  </span><br><span class="line">//mode（可选参数）：一个整数，表示打开文件时应用的权限模式。  </span><br><span class="line">int fake_open(const char *pathname, int flags, ...) &#123;  </span><br><span class="line">    mode_t mode = 0;  </span><br><span class="line">    if (needs_mode(flags)) &#123;  </span><br><span class="line">        va_list args;  </span><br><span class="line">        va_start(args, flags);  </span><br><span class="line">        mode = static_cast&lt;mode_t&gt;(va_arg(args, int));  </span><br><span class="line">        va_end(args);  </span><br><span class="line">    &#125;  </span><br><span class="line">    //LOGI(&quot;open,  path: %s, flags: %d, mode: %d&quot;,pathname, flags ,mode);  </span><br><span class="line">    string cpp_path= pathname;  </span><br><span class="line">    if(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        LOGI(&quot;libc_open, redirect: %s, ---&gt;: %s&quot;,pathname, fakepath.data());  </span><br><span class="line">        return orig_open(&quot;/data/user/0/com.zj.wuaipojie/files/base.apk&quot;, flags, mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    return  orig_open(pathname, flags, mode);  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">//该函数的功能是在打开一个文件时进行拦截，并在满足特定条件时将文件路径替换为另一个路径  </span><br><span class="line">  </span><br><span class="line">//fake_openat 函数有四个参数：  </span><br><span class="line">//fd：一个整数，表示要打开的文件的文件描述符。  </span><br><span class="line">//pathname：一个字符串，表示要打开的文件的路径。  </span><br><span class="line">//flags：一个整数，表示打开文件的方式，例如只读、只写、读写等。  </span><br><span class="line">//mode（可选参数）：一个整数，表示打开文件时应用的权限模式。  </span><br><span class="line">//openat 函数的作用类似于 open 函数，但是它使用文件描述符来指定文件路径，而不是使用文件路径本身。这样，就可以在打开文件时使用相对路径，而不必提供完整的文件路径。  </span><br><span class="line">//例如，如果要打开相对于当前目录的文件，可以使用 openat 函数，而不是 open 函数，因为 open 函数只能使用绝对路径。  </span><br><span class="line">//  </span><br><span class="line">int fake_openat(int fd, const char *pathname, int flags, ...) &#123;  </span><br><span class="line">    mode_t mode = 0;  </span><br><span class="line">    if (needs_mode(flags)) &#123;  </span><br><span class="line">        va_list args;  </span><br><span class="line">        va_start(args, flags);  </span><br><span class="line">        mode = static_cast&lt;mode_t&gt;(va_arg(args, int));  </span><br><span class="line">        va_end(args);  </span><br><span class="line">    &#125;  </span><br><span class="line">    LOGI(&quot;openat, fd: %d, path: %s, flags: %d, mode: %d&quot;,fd ,pathname, flags ,mode);  </span><br><span class="line">    string cpp_path= pathname;  </span><br><span class="line">    if(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        LOGI(&quot;libc_openat, redirect: %s, ---&gt;: %s&quot;,pathname, fakepath.data());  </span><br><span class="line">        return  orig_openat(fd,fakepath.data(), flags, mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    return orig_openat(fd,pathname, flags, mode);  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">FILE *fake_fopen(const char *filename, const char *mode) &#123;  </span><br><span class="line">  </span><br><span class="line">    string cpp_path= filename;  </span><br><span class="line">    if(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        return  orig_fopen(fakepath.data(), mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    return orig_fopen(filename, mode);  </span><br><span class="line">&#125;  </span><br><span class="line">//该函数的功能是在执行系统调用时进行拦截，并在满足特定条件时修改系统调用的参数。  </span><br><span class="line">//syscall 函数是一个系统调用，是程序访问内核功能的方法之一。使用 syscall 函数可以调用大量的系统调用，它们用于实现操作系统的各种功能，例如打开文件、创建进程、分配内存等。  </span><br><span class="line">//  </span><br><span class="line">static long fake_syscall(long number, ...) &#123;  </span><br><span class="line">    void *arg[7];  </span><br><span class="line">    va_list list;  </span><br><span class="line">  </span><br><span class="line">    va_start(list, number);  </span><br><span class="line">    for (int i = 0; i &lt; 7; ++i) &#123;  </span><br><span class="line">        arg[i] = va_arg(list, void *);  </span><br><span class="line">    &#125;  </span><br><span class="line">    va_end(list);  </span><br><span class="line">    if (number == __NR_openat)&#123;  </span><br><span class="line">        const char *cpp_path = static_cast&lt;const char *&gt;(arg[1]);  </span><br><span class="line">        LOGI(&quot;syscall __NR_openat, fd: %d, path: %s, flags: %d, mode: %d&quot;,arg[0] ,arg[1], arg[2], arg[3]);  </span><br><span class="line">        if (isOrigAPK(cpp_path))&#123;  </span><br><span class="line">            LOGI(&quot;syscall __NR_openat, redirect: %s, ---&gt;: %s&quot;,arg[1], fakepath.data());  </span><br><span class="line">            return orig_syscall(number,arg[0], fakepath.data() ,arg[2],arg[3]);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return orig_syscall(number, arg[0], arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">//函数的功能是获取当前应用的包名、APK 文件路径以及库文件路径，并将这些信息保存在全局变量中  </span><br><span class="line">//函数调用 GetObjectClass 和 GetMethodID 函数来获取 context 对象的类型以及 getPackageName 方法的 ID。然后，函数调用 CallObjectMethod 函数来调用 getPackageName 方法，获取当前应用的包名。最后，函数使用 GetStringUTFChars 函数将包名转换为 C 字符串，并将包名保存在 packname 全局变量中  </span><br><span class="line">//接着，函数使用 fakepath 全局变量保存了 /data/user/0/&lt;packname&gt;/files/base.apk 这样的路径，其中 &lt;packname&gt; 是当前应用的包名。  </span><br><span class="line">//然后，函数再次调用 GetObjectClass 和 GetMethodID 函数来获取 context 对象的类型以及 getApplicationInfo 方法的 ID。然后，函数调用 CallObjectMethod 函数来调用 getApplicationInfo 方法，获取当前应用的 ApplicationInfo 对象。  </span><br><span class="line">//它先调用 GetObjectClass 函数获取 ApplicationInfo 对象的类型，然后调用 GetFieldID 函数获取 sourceDir 字段的 ID。接着，函数使用 GetObjectField 函数获取 sourceDir 字段的值，并使用 GetStringUTFChars 函数将其转换为 C 字符串。最后，函数将 C 字符串保存在 origpath 全局变量中，表示当前应用的 APK 文件路径。  </span><br><span class="line">//最后，函数使用 GetFieldID 和 GetObjectField 函数获取 nativeLibraryDir 字段的值，并使用 GetStringUTFChars 函数将其转换为 C 字符串。函数最后调用 LOGI 函数打印库文件路径，但是并没有将其保存在全局变量中。  </span><br><span class="line">  </span><br><span class="line">extern &quot;C&quot; JNIEXPORT void JNICALL  </span><br><span class="line">Java_com_zj_wuaipojie_util_SecurityUtil_hook(JNIEnv *env, jclass clazz, jobject context) &#123;  </span><br><span class="line">    jclass conext_class = env-&gt;GetObjectClass(context);  </span><br><span class="line">    jmethodID methodId_pack = env-&gt;GetMethodID(conext_class, &quot;getPackageName&quot;,  </span><br><span class="line">                                               &quot;()Ljava/lang/String;&quot;);  </span><br><span class="line">    auto packname_js = reinterpret_cast&lt;jstring&gt;(env-&gt;CallObjectMethod(context, methodId_pack));  </span><br><span class="line">    const char *pn = env-&gt;GetStringUTFChars(packname_js, 0);  </span><br><span class="line">    packname = string(pn);  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    env-&gt;ReleaseStringUTFChars(packname_js, pn);  </span><br><span class="line">    //LOGI(&quot;packname: %s&quot;, packname.data());  </span><br><span class="line">    fakepath= &quot;/data/user/0/&quot;+ packname +&quot;/files/base.apk&quot;;  </span><br><span class="line">  </span><br><span class="line">    jclass conext_class2 = env-&gt;GetObjectClass(context);  </span><br><span class="line">    jmethodID methodId_pack2 = env-&gt;GetMethodID(conext_class2,&quot;getApplicationInfo&quot;,&quot;()Landroid/content/pm/ApplicationInfo;&quot;);  </span><br><span class="line">    jobject application_info = env-&gt;CallObjectMethod(context,methodId_pack2);  </span><br><span class="line">    jclass pm_clazz = env-&gt;GetObjectClass(application_info);  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    jfieldID package_info_id = env-&gt;GetFieldID(pm_clazz,&quot;sourceDir&quot;,&quot;Ljava/lang/String;&quot;);  </span><br><span class="line">    auto sourceDir_js = reinterpret_cast&lt;jstring&gt;(env-&gt;GetObjectField(application_info,package_info_id));  </span><br><span class="line">    const char *sourceDir = env-&gt;GetStringUTFChars(sourceDir_js, 0);  </span><br><span class="line">    origpath = string(sourceDir);  </span><br><span class="line">    LOGI(&quot;sourceDir: %s&quot;, sourceDir);  </span><br><span class="line">  </span><br><span class="line">    jfieldID package_info_id2 = env-&gt;GetFieldID(pm_clazz,&quot;nativeLibraryDir&quot;,&quot;Ljava/lang/String;&quot;);  </span><br><span class="line">    auto nativeLibraryDir_js = reinterpret_cast&lt;jstring&gt;(env-&gt;GetObjectField(application_info,package_info_id2));  </span><br><span class="line">    const char *nativeLibraryDir = env-&gt;GetStringUTFChars(nativeLibraryDir_js, 0);  </span><br><span class="line">    LOGI(&quot;nativeLibraryDir: %s&quot;, nativeLibraryDir);  </span><br><span class="line">    //LOGI(&quot;%s&quot;, &quot;Start Hook&quot;);  </span><br><span class="line">  </span><br><span class="line">    //启动hook  </span><br><span class="line">    void *handle = dlopen(&quot;libc.so&quot;,RTLD_NOW);  </span><br><span class="line">    auto pagesize = sysconf(_SC_PAGE_SIZE);  </span><br><span class="line">    auto addr = ((uintptr_t)dlsym(handle,&quot;open&quot;) &amp; (-pagesize));  </span><br><span class="line">    auto addr2 = ((uintptr_t)dlsym(handle,&quot;openat&quot;) &amp; (-pagesize));  </span><br><span class="line">    auto addr3 = ((uintptr_t)fopen) &amp; (-pagesize);  </span><br><span class="line">    auto addr4 = ((uintptr_t)syscall) &amp; (-pagesize);  </span><br><span class="line">  </span><br><span class="line">    //解除部分机型open被保护  </span><br><span class="line">    mprotect((void*)addr, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((void*)addr2, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((void*)addr3, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((void*)addr4, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">  </span><br><span class="line">    DobbyHook((void *)dlsym(handle,&quot;open&quot;), (void *)fake_open, (void **)&amp;orig_open);  </span><br><span class="line">    DobbyHook((void *)dlsym(handle,&quot;openat&quot;), (void *)fake_openat, (void **)&amp;orig_openat);  </span><br><span class="line">    DobbyHook((void *)fopen, (void *)fake_fopen, (void**)&amp;orig_fopen);  </span><br><span class="line">    DobbyHook((void *)syscall, (void *)fake_syscall, (void **)&amp;orig_syscall);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sget-object p10, Lcom/zj/wuaipojie/util/ContextUtils;-&gt;INSTANCE:Lcom/zj/wuaipojie/util/ContextUtils;  </span><br><span class="line"> </span><br><span class="line">   invoke-virtual &#123;p10&#125;, Lcom/zj/wuaipojie/util/ContextUtils;-&gt;getContext()Landroid/content/Context;  </span><br><span class="line"> </span><br><span class="line">   move-result-object p10  </span><br><span class="line"> </span><br><span class="line">   invoke-static &#123;p10&#125;, Lcom/zj/wuaipojie/util/SecurityUtil;-&gt;hook(Landroid/content/Context;)V</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/266.png" class="lazyload" data-srcset="/../image/266.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="266"></p>
+<p>首先这个新的API签名校验跟普通签名校验是一样的</p>
+<p><img src="/../image/267.png" class="lazyload" data-srcset="/../image/267.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="267"></p>
+<p>这里定位到一个新的签名信息，然后我们通过算法助手hook到它的newsign，然后再经过替换</p>
+<p><img src="/../image/268.png" class="lazyload" data-srcset="/../image/268.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="268"></p>
+<p>crc校验和hash校验原理是相同的，都是先io重定向原包</p>
+<p><img src="/../image/269.png" class="lazyload" data-srcset="/../image/269.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="269"></p>
+<p>为啥要在数据目录1创建一个files文件夹，里面放入没有经过任何修改的原包，是因为io重定向原理中，要访问这个路径</p>
+<p><img src="/../image/270.png" class="lazyload" data-srcset="/../image/270.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="270"></p>
+<h3 id="7-其他常见校验"><a href="#7-其他常见校验" class="headerlink" title="7.其他常见校验"></a>7.其他常见校验</h3><h4 id="root检测："><a href="#root检测：" class="headerlink" title="root检测："></a>root检测：</h4><p>反制手段 1.算法助手、对话框取消等插件一键hook</p>
+<p>2.分析具体的检测代码</p>
+<p>3.利用IO重定向使文件不可读</p>
+<p>4.修改Andoird源码，去除常见指纹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">fun isDeviceRooted(): Boolean &#123;</span><br><span class="line">    return checkRootMethod1() || checkRootMethod2() || checkRootMethod3()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun checkRootMethod1(): Boolean &#123;</span><br><span class="line">    val buildTags = android.os.Build.TAGS</span><br><span class="line">    return buildTags != null &amp;&amp; buildTags.contains(&quot;test-keys&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun checkRootMethod2(): Boolean &#123;</span><br><span class="line">    val paths = arrayOf(&quot;/system/app/Superuser.apk&quot;, &quot;/sbin/su&quot;, &quot;/system/bin/su&quot;, &quot;/system/xbin/su&quot;, &quot;/data/local/xbin/su&quot;, &quot;/data/local/bin/su&quot;, &quot;/system/sd/xbin/su&quot;,</span><br><span class="line">            &quot;/system/bin/failsafe/su&quot;, &quot;/data/local/su&quot;, &quot;/su/bin/su&quot;)</span><br><span class="line">    for (path in paths) &#123;</span><br><span class="line">        if (File(path).exists()) return true</span><br><span class="line">    &#125;</span><br><span class="line">    return false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun checkRootMethod3(): Boolean &#123;</span><br><span class="line">    var process: Process? = null</span><br><span class="line">    return try &#123;</span><br><span class="line">        process = Runtime.getRuntime().exec(arrayOf(&quot;/system/xbin/which&quot;, &quot;su&quot;))</span><br><span class="line">        val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))</span><br><span class="line">        bufferedReader.readLine() != null</span><br><span class="line">    &#125; catch (t: Throwable) &#123;</span><br><span class="line">        false</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        process?.destroy()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定义了一个 <code>isDeviceRooted()</code> 函数，该函数调用了三个检测 root 的方法：<code>checkRootMethod1()</code>、<code>checkRootMethod2()</code> 和 <code>checkRootMethod3()</code>。</p>
+<p><code>checkRootMethod1()</code> 方法检查设备的 <code>build tags</code> 是否包含 <code>test-keys</code>。这通常是用于测试的设备，因此如果检测到这个标记，则可以认为设备已被 root。</p>
+<p><code>checkRootMethod2()</code> 方法检查设备是否存在一些特定的文件，这些文件通常被用于执行 root 操作。如果检测到这些文件，则可以认为设备已被 root。</p>
+<p><code>checkRootMethod3()</code> 方法使用 <code>Runtime.exec()</code> 方法来执行 <code>which su</code> 命令，然后检查命令的输出是否不为空。如果输出不为空，则可以认为设备已被 root。</p>
+<h4 id="模拟器检测"><a href="#模拟器检测" class="headerlink" title="模拟器检测"></a>模拟器检测</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun isEmulator(): Boolean &#123; </span><br><span class="line">	return Build.FINGERPRINT.startsWith(&quot;generic&quot;) || Build.FINGERPRINT.startsWith(&quot;unknown&quot;) || Build.MODEL.contains(&quot;google_sdk&quot;) Build.MODEL.contains(&quot;Emulator&quot;) || Build.MODEL.contains(&quot;Android SDK built for x86&quot;) || Build.MANUFACTURER.contains(&quot;Genymotion&quot;) || Build.HOST.startsWith(&quot;Build&quot;) || Build.PRODUCT == &quot;google_sdk&quot; </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过检测系统的 <code>Build</code> 对象来判断当前设备是否为模拟器。具体方法是检测 <code>Build.FINGERPRINT</code> 属性是否包含字符串 <code>&quot;generic&quot;</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://ionized-bag-d70.notion.site/04dbaf39091f42519b14decd2a87fde7">模拟器检测对抗</a></p>
+<h4 id="反调试检测"><a href="#反调试检测" class="headerlink" title="反调试检测"></a>反调试检测</h4><p>安卓系统自带调试检测函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun checkForDebugger() &#123;  </span><br><span class="line">    if (Debug.isDebuggerConnected()) &#123;  </span><br><span class="line">        // 如果调试器已连接，则终止应用程序  </span><br><span class="line">        System.exit(0)  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>debuggable属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public boolean getAppCanDebug(Context context)//上下文对象为xxActivity.this</span><br><span class="line">&#123;</span><br><span class="line">    boolean isDebug = context.getApplicationInfo() != null &amp;&amp;</span><br><span class="line">            (context.getApplicationInfo().flags &amp; ApplicationInfo.FLAG_DEBUGGABLE) != 0;</span><br><span class="line">    return isDebug;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ptrace检测</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int ptrace_protect()//ptrace附加自身线程 会导致此进程TracerPid 变为父进程的TracerPid 即zygote</span><br><span class="line">&#123;</span><br><span class="line">    return ptrace(PTRACE_TRACEME,0,0,0);;//返回-1即为已经被调试</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>每个进程同时刻只能被1个调试进程ptrace ，主动ptrace本进程可以使得其他调试器无法调试</p>
+<p>调试进程名检测</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">int SearchObjProcess()</span><br><span class="line">&#123;</span><br><span class="line">    FILE* pfile=NULL;</span><br><span class="line">    char buf[0x1000]=&#123;0&#125;;</span><br><span class="line"> </span><br><span class="line">    pfile=popen(&quot;ps&quot;,&quot;r&quot;);</span><br><span class="line">    if(NULL==pfile)</span><br><span class="line">    &#123;</span><br><span class="line">        //LOGA(&quot;SearchObjProcess popen打开命令失败!\n&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    // 获取结果</span><br><span class="line">    //LOGA(&quot;popen方案:\n&quot;);</span><br><span class="line">    while(fgets(buf,sizeof(buf),pfile))</span><br><span class="line">    &#123;</span><br><span class="line"> </span><br><span class="line">        char* strA=NULL;</span><br><span class="line">        char* strB=NULL;</span><br><span class="line">        char* strC=NULL;</span><br><span class="line">        char* strD=NULL;</span><br><span class="line">        strA=strstr(buf,&quot;android_server&quot;);//通过查找匹配子串判断</span><br><span class="line">        strB=strstr(buf,&quot;gdbserver&quot;);</span><br><span class="line">        strC=strstr(buf,&quot;gdb&quot;);</span><br><span class="line">        strD=strstr(buf,&quot;fuwu&quot;);</span><br><span class="line">        if(strA || strB ||strC || strD)</span><br><span class="line">        &#123;</span><br><span class="line">            return 1;</span><br><span class="line">            // 执行到这里，判定为调试状态</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    pclose(pfile);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-268155.htm">原创]对安卓反调试和校验检测的一些实践与结论</a></p>
+<h3 id="8-smali语法小课堂之赋值"><a href="#8-smali语法小课堂之赋值" class="headerlink" title="8.smali语法小课堂之赋值"></a>8.smali语法小课堂之赋值</h3><h4 id="1-Int型赋值"><a href="#1-Int型赋值" class="headerlink" title="1.Int型赋值"></a>1.Int型赋值</h4><p><img src="/../image/271.png" class="lazyload" data-srcset="/../image/271.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="271"></p>
+<p><img src="/../image/272.png" class="lazyload" data-srcset="/../image/272.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="272"></p>
+<p>我们只需要将isvip的返回值改为99就是至尊会员</p>
+<p>const&#x2F;4 最大只允许存放4个二进制位(4bit)，<br>const&#x2F;16 最大值允许存放16个二进制位(16bit)， 第一位(即最高位)默认为符号位。单位换算 1byte&#x3D;8bit</p>
+<h4 id="2-Long型赋值"><a href="#2-Long型赋值" class="headerlink" title="2.Long型赋值"></a>2.Long型赋值</h4><p><strong>const-wide vx, lit32</strong> 表示将一个 32 位的常量存储到 vx 与 vx+1 两个寄存器中 —— 即一个 long 类型的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.method public final vipEndTime()J  </span><br><span class="line">    .registers 3  </span><br><span class="line">  </span><br><span class="line">    const-wide v0, 0x1854460ef29L  </span><br><span class="line">  </span><br><span class="line">    return-wide v0  </span><br><span class="line">.end method</span><br></pre></td></tr></table></figure>
+
+
+
+<p>会员到期时间就是2022年12月24日。那么1854460ef29L 怎么来的呢？也就是（2022年12月24日-1970年1月1日）×365天×24小时×60分钟×60秒×1000毫秒，转换成16进制就大概是那个数了</p>
+<p><a target="_blank" rel="noopener" href="https://www.beijing-time.org/shijianchuo/">在线时间戳转换</a></p>
+<img src="../image/273.png" class="lazyload" data-srcset="../image/273.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="273" style="zoom:50%;" />
+
+<h4 id="3-变量赋值-正则"><a href="#3-变量赋值-正则" class="headerlink" title="3.变量赋值(正则)"></a>3.变量赋值(正则)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">iget p0, p0, Lcom/zj/wuaipojie/ui/SmaliLearn;-&gt;vip_coin:I  </span><br><span class="line"> </span><br><span class="line">   if-eqz p0, :cond_74  </span><br><span class="line"> </span><br><span class="line">   .line 36  </span><br><span class="line">   invoke-static &#123;p0&#125;, Ljava/lang/String;-&gt;valueOf(I)Ljava/lang/String;</span><br><span class="line"></span><br><span class="line">   move-result-object p0</span><br><span class="line"></span><br><span class="line">   check-cast p0, Ljava/lang/CharSequence;</span><br><span class="line">   </span><br><span class="line">   invoke-virtual &#123;p3, p0&#125;, Landroid/widget/TextView;-&gt;setText(Ljava/lang/CharSequence;)V</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/274.png" class="lazyload" data-srcset="/../image/274.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="274"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(.*) .*</span><br><span class="line">const/4 $1 0x1</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h3>
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-28T21:14:23+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 28, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf%E5%AD%A6%E4%B9%A0/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf学习</p></a></div>
+  <span hidden itemprop="keywords">ctf学习</span>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/&title=安卓逆向学习 - holys2 blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/&title=安卓逆向学习 - holys2 blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/&title=安卓逆向学习 - holys2 blog&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2023/12/23/AndroidManifest%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>AndroidManifest文件格式</p>
+          <p class='content'>1、AndroidManifest文件格式解析
+2、头部信息3、String Chunk
+这个Chunk主要存放的是AndroidManifest文件中所有的字符串信息
+1234567891、C...</p>
+        </a>
+      
+      
+        <a class='next' href='/2023/12/16/CTF%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/'>
+          <p class='title'>CTF学习日志<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>2023.12.2——（持续更新中）如何快速定位到main函数？寻找类似error！这样的字符串，一般main函数离这个字符串不远
+
+如果遇到一个for循环，就直接在retn的地方下个断点，然后...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
+    
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
+  
+
+  
+    
+    
+      
+    
+  
+
+
+<div class="widget-sticky pjax">
+
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#APK"><span class="toc-text">APK</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%86%E8%A7%A3APK%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">1.了解APK文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8F%8C%E5%BC%80%E5%8F%8A%E5%8E%9F%E7%90%86"><span class="toc-text">2.双开及原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B1%89%E5%8C%96APK"><span class="toc-text">3.汉化APK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%88%9D%E8%AF%86AndroidMainfest-xml"><span class="toc-text">4.初识AndroidMainfest.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smali"><span class="toc-text">smali</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#smali%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95"><span class="toc-text">smali及其语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E5%88%A4%E6%96%AD"><span class="toc-text">1.修改判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%80%BC"><span class="toc-text">2.修改寄存器的值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AC"><span class="toc-text">3.强制跳转</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%83%E4%B9%A0"><span class="toc-text">小练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BF%E5%91%8A"><span class="toc-text">广告</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B9%BF%E5%91%8A%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.广告类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-text">2.安卓四大组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">3.Activity生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%B9%E7%AA%97%E5%AE%9A%E4%BD%8D-%E5%A0%86%E6%A0%88%E5%88%86%E6%9E%90"><span class="toc-text">4.弹窗定位&amp;堆栈分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96"><span class="toc-text">5.布局优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-text">练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IDA-so%E6%96%87%E4%BB%B6%E8%B0%83%E8%AF%95"><span class="toc-text">IDA-so文件调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-JEB%E5%8F%8D%E7%BC%96%E8%AF%91APK-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90Java%E4%BB%A3%E7%A0%81"><span class="toc-text">一. JEB反编译APK 静态分析Java代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-IDA%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E6%89%BE%E4%BD%8D%E7%BD%AE"><span class="toc-text">二 IDA静态分析找位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-IDA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95"><span class="toc-text">三.IDA动态调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95-Log%E6%8F%92%E6%A1%A9"><span class="toc-text">动态调试&amp;Log插桩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="toc-text">动态调试步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9debug%E6%9D%83%E9%99%90"><span class="toc-text">1.修改debug权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%BB%A5%E5%8F%8A%E5%BC%80%E5%90%AFadb%E6%9D%83%E9%99%90"><span class="toc-text">2.端口转发以及开启adb权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%8B%E6%AE%B5%E7%82%B9"><span class="toc-text">3.下段点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-debug%E6%A8%A1%E5%BC%8F%E5%90%AF%E5%8A%A8"><span class="toc-text">4.debug模式启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Jeb%E9%99%84%E5%8A%A0%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B"><span class="toc-text">5.Jeb附加调试进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Log%E6%8F%92%E6%A1%A9"><span class="toc-text">Log插桩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0-1"><span class="toc-text">练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E7%9A%84N%E6%AC%A1%E6%96%B9-%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C%E5%AF%B9%E6%8A%97%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%A7%BF%E5%8A%BF%E3%80%81PM%E4%BB%A3%E7%90%86%E3%80%81IO%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">校验的N次方-签名校验对抗的多种姿势、PM代理、IO重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%A0%A1%E9%AA%8C"><span class="toc-text">1.什么是校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AFAPK%E7%AD%BE%E5%90%8D"><span class="toc-text">2.什么是APK签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C"><span class="toc-text">3.什么是签名校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C%E5%AF%B9%E6%8A%97"><span class="toc-text">4.签名校验对抗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0PM%E4%BB%A3%E7%90%86"><span class="toc-text">5.手动实现PM代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFPMS"><span class="toc-text">1.什么是PMS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="toc-text">2.实现方法以及原理解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-IO%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">6.IO重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%A0%A1%E9%AA%8C"><span class="toc-text">7.其他常见校验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#root%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="toc-text">root检测：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%A3%80%E6%B5%8B"><span class="toc-text">模拟器检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E8%B0%83%E8%AF%95%E6%A3%80%E6%B5%8B"><span class="toc-text">反调试检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-smali%E8%AF%AD%E6%B3%95%E5%B0%8F%E8%AF%BE%E5%A0%82%E4%B9%8B%E8%B5%8B%E5%80%BC"><span class="toc-text">8.smali语法小课堂之赋值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Int%E5%9E%8B%E8%B5%8B%E5%80%BC"><span class="toc-text">1.Int型赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Long%E5%9E%8B%E8%B5%8B%E5%80%BC"><span class="toc-text">2.Long型赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC-%E6%AD%A3%E5%88%99"><span class="toc-text">3.变量赋值(正则)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0-2"><span class="toc-text">练习</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
+</div>
+
+
+<!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<pjax>
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  //  see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs
+  
+    // header
+    var l_header=document.getElementById("l_header");
+    
+    l_header.classList.add("show");
+    
+    
+      // cover
+      var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
+      var scroll_down=document.getElementById('scroll-down');
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
+    
+  
+</script>
+</pjax>
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="http://schema.org/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.8.0" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © since 2017 XXX</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+  </footer>
+
+
+        <a id="s-top" class="fa-solid fa-arrow-up fa-fw" href="/" onclick="return false;" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fortawesome/fontawesome-free/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+<script src="/js/app.js"></script>
+
+
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/js/plugins/tags/sites.js")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/friends.js")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/contributors.js")
+      }
+    
+  };
+  loadIssuesJS()
+  volantis.pjax.push(()=>{
+    loadIssuesJS();
+  })
+
+</script>
+
+
+
+
+  <script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/vanilla-lazyload/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/flying-pages/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+      <script>
+  volantis.layoutHelper("comments",`<div id="giscus_container"></div>`)
+
+  volantis.giscus = {};
+
+  function check_giscus() {
+    if (volantis.dark.mode === "dark") {
+      volantis.giscus.Theme = 'dark';
+    } else {
+      volantis.giscus.Theme = 'light';
+    }
+
+    return document.getElementById("giscus_container");
+  }
+
+  function pjax_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+    let cfg = Object.assign({"theme":{"light":"light","dark":"dark"},"repo":"holys2/holys2.github.io","repo-id":"R_kgDOKfQ7Zg","category":"Announcements","category-id":"DIC_kwDOKfQ7Zs4CaD1i","mapping":"url","reactions-enabled":"1","emit-metadata":"0","lang":"zh-CN"},pdata.commentConfig)
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://giscus.app/client.js');
+    Object.keys(cfg).forEach(k=>{
+      if (k != "theme") {
+        script.setAttribute('data-'+k, cfg[k]);
+      }
+    })
+    script.setAttribute('data-theme', volantis.giscus.Theme);
+    script.setAttribute('crossorigin', "anonymous");
+    HEAD.appendChild(script);
+  }
+
+  function dark_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+
+    const message = {
+      setConfig: {
+        theme: volantis.giscus.Theme
+      }
+    };
+    const giscusIframe = document.querySelector('iframe.giscus-frame');
+    giscusIframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+  pjax_giscus();
+  volantis.pjax.push(pjax_giscus);
+  volantis.dark.push(dark_giscus);
+</script>
+
+    
+
+
+
+
+
+<!-- optional -->
+
+  <script>
+  const SearchServiceDataPathRoot = ("/" || "/").endsWith("/") ?
+    "/" || "/" :
+    "//" || "/";
+  const SearchServiceDataPath = SearchServiceDataPathRoot + "content.json";
+
+  function loadSearchScript() {
+    // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
+    return volantis.js("/js/search/hexo.js");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+
+    document.querySelectorAll(".u-search-form").forEach((e) => {
+      e.addEventListener("submit", (event) => {
+        event.preventDefault();
+      }, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    if (typeof SearchService === 'undefined')
+      loadSearchScript().then(() => {
+        SearchService.setQueryText(s);
+        SearchService.search();
+      });
+    else {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    }
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function pjax_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.utilCopyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
+  volantis.pjax.push(pjax_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+  volantis.pjax.push(() => {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    if (typeof volantis.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+
+
+<!-- pjax 标签必须存在于所有页面 否则 pjax error -->
+<pjax>
+
+</pjax>
+
+<script>
+  function listennSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    let targets = []
+    const sections = [...navItems].map((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        decodeURI(link.getAttribute("href")).replace("#", "")
+      );
+      targets.push(target)
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      link.setAttribute("onclick","return false;")
+      link.setAttribute("toc-action","toc-"+decodeURI(link.getAttribute("href")).replace("#", ""))
+      link.setAttribute("href","/")
+      // 配置 点击 触发新的锚点定位
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        // 这里的 addTop 是通过错位使得 toc 自动展开.
+        volantis.scroll.to(target,{addTop: 5, observer:true})
+        // Anchor id
+        history.pushState(null, document.title, "#" + target.id);
+      });
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    // 方案一：
+    volantis.activateNavIndex=0
+    activateNavByIndex(navItems[volantis.activateNavIndex])
+    volantis.scroll.push(()=>{
+      if (targets[0].getBoundingClientRect().top >= 0) {
+        volantis.activateNavIndex = 0
+      }else if (targets[targets.length-1].getBoundingClientRect().top < 0) {
+        volantis.activateNavIndex = targets.length-1
+      } else {
+        for (let index = 0; index < targets.length; index++) {
+          const target0 = targets[index];
+          const target1 = targets[(index+1)%targets.length];
+          if (target0.getBoundingClientRect().top < 0&&target1.getBoundingClientRect().top >= 0) {
+            volantis.activateNavIndex=index
+            break;
+          }
+        }
+      }
+      activateNavByIndex(navItems[volantis.activateNavIndex])
+    })
+
+    // 方案二：
+    // IntersectionObserver 不是完美精确到像素级别 也不是低延时性的
+    // function findIndex(entries) {
+    //   let index = 0;
+    //   let entry = entries[index];
+    //   if (entry.boundingClientRect.top > 0) {
+    //     index = sections.indexOf(entry.target);
+    //     return index === 0 ? 0 : index - 1;
+    //   }
+    //   for (; index < entries.length; index++) {
+    //     if (entries[index].boundingClientRect.top <= 0) {
+    //       entry = entries[index];
+    //     } else {
+    //       return sections.indexOf(entry.target);
+    //     }
+    //   }
+    //   return sections.indexOf(entry.target);
+    // }
+    // function createIntersectionObserver(marginTop) {
+    //   marginTop = Math.floor(marginTop + 10000);
+    //   let intersectionObserver = new IntersectionObserver(
+    //     (entries, observe) => {
+    //       let scrollHeight = document.documentElement.scrollHeight;
+    //       if (scrollHeight > marginTop) {
+    //         observe.disconnect();
+    //         createIntersectionObserver(scrollHeight);
+    //         return;
+    //       }
+    //       let index = findIndex(entries);
+    //       activateNavByIndex(navItems[index]);
+    //     }, {
+    //       rootMargin: marginTop + "px 0px -100% 0px",
+    //       threshold: 0,
+    //     }
+    //   );
+    //   sections.forEach((element) => {
+    //     element && intersectionObserver.observe(element);
+    //   });
+    // }
+    // createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+  document.addEventListener("pjax:success", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+</script>
+
+
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      // 页面加载完毕 样式加载失败，或是当前网速慢，或是开启了省流模式
+      const { saveData, effectiveType } = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {}
+      if (getComputedStyle(document.querySelector("#safearea"), null)["display"] == "none" || saveData || /2g/.test(effectiveType)) {
+        document.querySelectorAll(".reveal").forEach(function (e) {
+          e.style["opacity"] = "1";
+        });
+        document.querySelector("#safearea").style["display"] = "block";
+      }
+    }
+  }
+</script>
+
+
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"holys2 blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/安卓逆向/","name":"安卓逆向"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/12/19/安卓逆向/","name":"安卓逆向学习"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"holys2 blog","url":"http://example.com/","keywords":null,"description":"","author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":""},"publisher":{"@type":"Organization","name":"holys2 blog","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"安卓逆向学习","description":"","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/"},"author":{"@type":"Person","name":"John Doe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"holys2 blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/12/19/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/","wordCount":0,"datePublished":"2023-12-18T16:00:00.000Z","dateModified":"2023-12-28T13:14:23.927Z","articleSection":"安卓逆向","keywords":"ctf学习","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+
+      
+        <!--
+  pjax重载区域接口：
+  1.  <pjax></pjax> 标签 pjax 标签必须存在于所有页面 否则 pjax error
+  2.  script[data-pjax]
+  3.  .pjax-reload script
+  4.  .pjax
+-->
+
+
+
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/pjax/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox]):not([onclick="return false;"]):not([onclick="return!1"]):not([target="_blank"]):not([target="view_window"]):not([href$=".xml"])',
+        selectors: [
+          "head title",
+          "head meta[name=keywords]",
+          "head meta[name=description]",
+          
+          "#l_main",
+          "#pjax-header-nav-list",
+          ".pjax",
+          "pjax", // <pjax></pjax> 标签
+          "script[data-pjax], .pjax-reload script" // script标签添加data-pjax 或 script标签外层添加.pjax-reload 的script代码段重载
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000,
+        
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.complete.start();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      if(volantis.debug) {
+        console.error(e);
+        console.log('pjax error: \n' + JSON.stringify(e));
+      }else{
+        // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+        volantis.pjax.method.error.start();
+        window.location.href = e.triggerElement.href;
+      }
+    });
+</script>
+
+      
+    </div>
+    <!-- import body_end begin-->
+    <!-- import body_end end-->
+    <!-- Custom Files bodyEnd begin-->
+    
+    <!-- Custom Files bodyEnd end-->
+    <!-- front-matter body_end begin -->
+    <!-- front-matter body_end end -->
+  </body>
+</html>
